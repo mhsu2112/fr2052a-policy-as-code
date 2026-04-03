@@ -1,11 +1,22 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useModeStore } from '@/lib/store';
 import ScrollTOC from './ScrollTOC';
 import CopyButton from './CopyButton';
 import CrossRefLinks from './CrossRefLinks';
 import type { FR2052aForm, Section } from '@/lib/types';
+
+const PILLAR_MAP: Record<string, string> = { I: 'inflows', O: 'outflows', S: 'supplemental' };
+
+function sectionHref(sectionId: string): string {
+  const parts = sectionId.split('.');
+  const pillar = PILLAR_MAP[parts[0]] ?? 'inflows';
+  const category = parts.slice(0, 2).join('.').toLowerCase().replace('.', '-');
+  const section = sectionId.toLowerCase().replace(/\./g, '-');
+  return `/${pillar}/${category}/${section}`;
+}
 
 /* ── General Instructions content ── */
 const GENERAL_SECTIONS = [
@@ -93,12 +104,17 @@ function HumanSectionBlock({ section }: { section: Section }) {
   return (
     <article id={`section-${section.section_id}`} className="scroll-mt-16 mb-10">
       <div className="flex items-start gap-3 mb-2">
-        <span
-          className="shrink-0 text-xs font-mono font-semibold px-2 py-1 rounded"
+        <Link
+          href={sectionHref(section.section_id)}
+          className="shrink-0 text-xs font-mono font-semibold px-2 py-1 rounded hover:opacity-80 transition-opacity group flex items-center gap-1"
           style={{ background: pc.bg, color: pc.color, border: `1px solid ${pc.border}` }}
+          title="Open detail view with annotations"
         >
           {section.section_id}
-        </span>
+          <svg className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-4.5-6h6m0 0v6m0-6L9.75 14.25" />
+          </svg>
+        </Link>
         <h3 className="text-lg font-semibold text-slate-900 leading-snug">{section.section_name}</h3>
       </div>
 
