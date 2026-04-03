@@ -1,9 +1,15 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import type { Section } from '@/lib/types';
+import type { Section, MorphirRule } from '@/lib/types';
 import CrossRefLinks from './CrossRefLinks';
 
-export default function HumanRenderer({ section }: { section: Section }) {
+export default function HumanRenderer({
+  section,
+  morphirRules = [],
+}: {
+  section: Section;
+  morphirRules?: MorphirRule[];
+}) {
   return (
     <article className="max-w-3xl px-8 py-8">
 
@@ -67,58 +73,13 @@ export default function HumanRenderer({ section }: { section: Section }) {
         </div>
       )}
 
-      {/* Data fields table */}
+      {/* Data fields — inline prose (PDF style) */}
       {section.data_fields && section.data_fields.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-3">Data Fields</h2>
-          <div className="border border-slate-200 rounded-lg overflow-hidden">
-            <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
-                <tr>
-                  <th className="text-left px-4 py-2.5 text-[11px] font-semibold text-slate-600 font-mono">Field Name</th>
-                  <th className="text-left px-4 py-2.5 text-[11px] font-semibold text-slate-600">Type</th>
-                  <th className="text-left px-4 py-2.5 text-[11px] font-semibold text-slate-600">Valid Values</th>
-                  <th className="text-left px-4 py-2.5 text-[11px] font-semibold text-slate-600">Required</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {section.data_fields.map((field, i) => (
-                  <tr key={i} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-4 py-2.5 font-mono text-xs text-slate-800">{field.name}</td>
-                    <td className="px-4 py-2.5">
-                      <span className="text-[11px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono">
-                        {field.type}
-                      </span>
-                    </td>
-                    <td className="px-4 py-2.5 text-xs text-slate-600">
-                      {field.values ? (
-                        <div className="flex flex-wrap gap-1">
-                          {field.values.map((v, vi) => (
-                            <span key={vi} className="inline-block px-1.5 py-0.5 bg-slate-100 rounded text-[11px] font-mono">
-                              {v}
-                            </span>
-                          ))}
-                        </div>
-                      ) : field.description ? (
-                        field.description
-                      ) : (
-                        <span className="text-slate-400">—</span>
-                      )}
-                    </td>
-                    <td className="px-4 py-2.5 text-xs">
-                      {field.required === true ? (
-                        <span className="text-green-600 font-medium">Yes</span>
-                      ) : field.required === false ? (
-                        <span className="text-slate-400">No</span>
-                      ) : (
-                        <span className="text-slate-400">—</span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <p className="text-sm text-slate-500 leading-relaxed">
+            <span className="font-semibold text-slate-600">Applicable fields: </span>
+            {section.data_fields.map((f) => f.name).join(', ')}.
+          </p>
         </div>
       )}
 
@@ -127,6 +88,52 @@ export default function HumanRenderer({ section }: { section: Section }) {
         <div className="mb-8">
           <h2 className="text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-3">Cross-References</h2>
           <CrossRefLinks refs={section.cross_references} />
+        </div>
+      )}
+
+      {/* LCR Rule Mapping (Morphir) */}
+      {morphirRules.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-[11px] font-semibold text-slate-500 uppercase tracking-wide mb-3">LCR Rule Mapping</h2>
+          <div className="space-y-3">
+            {morphirRules.map((rule, i) => (
+              <div key={i} className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-xs font-mono font-semibold text-slate-800">{rule.cfr}</span>
+                      <span className="text-slate-300">·</span>
+                      <span className="text-xs text-slate-600">{(rule.weight * 100).toFixed(0)}% rate</span>
+                    </div>
+                    <p className="text-sm text-slate-600 leading-relaxed">{rule.description}</p>
+                    <div className="flex items-center gap-3 mt-2 text-[11px] text-slate-400">
+                      <span>Module: <span className="font-mono">{rule.module}</span></span>
+                      <span>·</span>
+                      <span>Weight: {rule.weight}</span>
+                    </div>
+                  </div>
+                  <span className={`shrink-0 text-[10px] font-medium px-1.5 py-0.5 rounded ${
+                    rule.status === 'confirmed'
+                      ? 'bg-green-100 text-green-700 border border-green-200'
+                      : 'bg-amber-50 text-amber-600 border border-amber-200'
+                  }`}>
+                    {rule.status}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center justify-between mt-2">
+            <p className="text-[10px] text-slate-400 leading-relaxed">
+              Based on <a href="https://github.com/finos/morphir-examples/tree/main/src/Morphir/Sample/Reg/LCR" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">FINOS Morphir LCR sample</a> (2014 final rule / 2019 FR 2052a). Status indicates mapping confidence vs. the 2025 form.
+            </p>
+            <a
+              href="/calculator"
+              className="shrink-0 ml-4 text-[11px] text-primary-600 hover:text-primary-700 hover:underline whitespace-nowrap"
+            >
+              Try in LCR Calculator →
+            </a>
+          </div>
         </div>
       )}
 

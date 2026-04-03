@@ -13,6 +13,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
+        if (!prisma) return null; // No database — auth disabled
 
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },

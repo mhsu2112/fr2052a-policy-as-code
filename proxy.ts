@@ -1,32 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 /**
- * Middleware: rewrite requests ending in .md to /api/raw-md?id=<SECTION_ID>
+ * Proxy: rewrite requests ending in .md to /api/raw-md/[id]
  *
  * Convention: GET /inflows/i-a/i-a-1.md
  *   → extracts the last path segment without .md
  *   → converts i-a-1 → I.A.1 (hyphens to dots, uppercase)
- *   → rewrites to /api/raw-md?id=I.A.1
- *
- * Also accepts: GET /api/section/I.A.1.md → rewrites to /api/raw-md?id=I.A.1
+ *   → rewrites to /api/raw-md/I.A.1
  */
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (!pathname.endsWith('.md')) return NextResponse.next();
 
-  // Strip .md suffix and grab the last path segment as the section identifier
-  const withoutExt = pathname.slice(0, -3); // remove .md
+  // Strip .md suffix and grab the last path segment
+  const withoutExt = pathname.slice(0, -3);
   const parts = withoutExt.split('/').filter(Boolean);
   const lastPart = parts[parts.length - 1];
 
   // Convert slug → section ID: i-a-1 → I.A.1
   const sectionId = lastPart.replace(/-/g, '.').toUpperCase();
 
-  const url = req.nextUrl.clone();
-  url.pathname = '/api/raw-md';
-  url.searchParams.set('id', sectionId);
-
+  // Rewrite to path-param route to avoid query-param issues
+  const url = new URL(`/api/raw-md/${encodeURIComponent(sectionId)}`, req.url);
   return NextResponse.rewrite(url);
 }
 

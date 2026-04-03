@@ -41,6 +41,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </span>
             <div className="flex-1" />
             <a
+              href="/calculator"
+              className="text-xs text-primary-600 hover:text-primary-700 hover:underline hidden sm:block"
+            >
+              LCR Calculator
+            </a>
+            <a
               href="https://www.federalreserve.gov/apps/reportingforms/Report/Index/FR_2052a"
               target="_blank"
               rel="noopener noreferrer"

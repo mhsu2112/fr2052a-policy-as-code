@@ -60,6 +60,10 @@ All endpoints accept GET requests and return JSON (unless otherwise noted). CORS
 | `/api/filter` | `pillar=&category=&has_field=&field_value=` | Filter sections |
 | `/api/export` | `scope=<all/pillar/category/section>&format=<json/yaml/md>` | Bulk export |
 | `/api/glossary` | `term=<term>` | Glossary lookup |
+| `/api/morphir` | `query=<rule_or_section>` | Morphir LCR rule mapping |
+| `POST /api/morphir/classify` | JSON body: `{ flow, date? }` | Classify a flow against all LCR rules |
+| `POST /api/morphir/compute` | JSON body: `{ hqla_flows, outflow_flows, inflow_flows, reporting_date }` | Compute full LCR ratio with rule-level drill-down |
+| `POST /api/morphir/stress` | JSON body: `{ hqla_flows, outflow_flows, inflow_flows, reporting_date, adjustments }` | Base vs. stressed LCR comparison |
 
 ### Path-parameter endpoints (REST-style)
 
@@ -74,6 +78,7 @@ GET /api/export/{scope}
 GET /api/glossary/{term}
 GET /api/search/{q}
 GET /api/map/{product}
+GET /api/morphir/{query}
 ```
 
 ### Raw Markdown convention
@@ -89,7 +94,7 @@ GET /api/raw-md?id=I.A.1
 
 Ships an MCP server for Claude Desktop integration. See `/mcp/README.md`.
 
-Tools: fr2052a_search, fr2052a_show, fr2052a_map, fr2052a_fields, fr2052a_enums, fr2052a_xref, fr2052a_diff, fr2052a_schema, fr2052a_filter, fr2052a_export, fr2052a_glossary
+Tools: fr2052a_search, fr2052a_show, fr2052a_map, fr2052a_fields, fr2052a_enums, fr2052a_xref, fr2052a_diff, fr2052a_schema, fr2052a_filter, fr2052a_export, fr2052a_glossary, fr2052a_morphir, fr2052a_classify_flow, fr2052a_compute_lcr, fr2052a_stress_test
 
 ## Source
 

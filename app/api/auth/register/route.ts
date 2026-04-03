@@ -3,6 +3,10 @@ import bcrypt from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
 
 export async function POST(req: NextRequest) {
+  if (!prisma) {
+    return NextResponse.json({ error: 'Registration is not available (no database configured)' }, { status: 503 });
+  }
+
   try {
     const body = await req.json();
     const { name, email, password, org_name } = body as {

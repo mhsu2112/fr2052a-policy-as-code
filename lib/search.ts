@@ -1,8 +1,15 @@
 import Fuse from 'fuse.js';
 import type { Section, SearchResult } from './types';
 
+// ── Cached Fuse index (singleton) ───────────────────────────────────
+let _fuseCache: Fuse<Section> | null = null;
+let _fuseSectionCount = 0;
+
 export function buildSearchIndex(sections: Section[]): Fuse<Section> {
-  return new Fuse(sections, {
+  // Rebuild only if sections have changed (e.g. after cache invalidation)
+  if (_fuseCache && _fuseSectionCount === sections.length) return _fuseCache;
+
+  _fuseCache = new Fuse(sections, {
     keys: [
       { name: 'section_id', weight: 0.35 },
       { name: 'section_name', weight: 0.3 },
@@ -18,6 +25,8 @@ export function buildSearchIndex(sections: Section[]): Fuse<Section> {
     threshold: 0.4,
     ignoreLocation: true,
   });
+  _fuseSectionCount = sections.length;
+  return _fuseCache;
 }
 
 export function search(query: string, sections: Section[]): SearchResult[] {

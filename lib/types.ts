@@ -53,6 +53,7 @@ export interface Section {
   version_history: VersionHistoryEntry[];
   // Raw markdown body (everything after frontmatter)
   content?: string;
+  morphir_rules?: MorphirRule[];
 }
 
 export type DataFieldType = 'enum' | 'date_bucket' | 'decimal' | 'boolean' | 'string';
@@ -108,3 +109,20 @@ export interface SearchResult {
 }
 
 export type Mode = 'human' | 'machine';
+
+// ── Morphir LCR integration ──────────────────────────────────────────
+
+export interface MorphirRule {
+  rule: string;           // Morphir rule name, e.g. "32(a)(1)"
+  cfr: string;            // 12 CFR 249 section, e.g. "§249.32(a)(1)"
+  weight: number;         // stress rate (0.0 – 1.0)
+  fr2052a: string[];      // FR 2052a section_ids (2025 version)
+  category: 'outflow' | 'inflow' | 'hqla';
+  module: string;         // Morphir Elm module name
+  description: string;
+  status: 'confirmed' | 'provisional';
+}
+
+export interface MorphirMapping {
+  rules: MorphirRule[];
+}

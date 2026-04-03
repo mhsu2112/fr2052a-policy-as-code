@@ -2,11 +2,16 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import yaml from 'js-yaml';
-import type { Section, FR2052aForm, GlossaryTerm } from './types';
+import type { Section, FR2052aForm, GlossaryTerm, MorphirRule, MorphirMapping } from './types';
 
 const CONTENT_DIR = path.join(process.cwd(), 'content');
 
-export function getAllSections(): Section[] {
+// ── Module-level cache ──────────────────────────────────────────────
+// Content is static between deploys, so we cache after the first read.
+let _sectionsCache: Section[] | null = null;
+let _rawCache: Map<string, { rawFrontmatter: string; rawBody: string }> | null = null;
+
+function loadAllSections(): Section[] {
   const sections: Section[] = [];
   const pillars = ['inflows', 'outflows', 'supplemental'];
 
@@ -36,6 +41,13 @@ export function getAllSections(): Section[] {
   }
 
   return sections;
+}
+
+export function getAllSections(): Section[] {
+  if (!_sectionsCache) {
+    _sectionsCache = loadAllSections();
+  }
+  return _sectionsCache;
 }
 
 export function getSection(sectionId: string): Section | null {
@@ -89,6 +101,24 @@ export function getGlossary(): GlossaryTerm[] {
 export function getFormMetadataRaw(): string {
   const metaPath = path.join(CONTENT_DIR, '_meta.yaml');
   return fs.readFileSync(metaPath, 'utf-8');
+}
+
+export function getMorphirMapping(): MorphirMapping {
+  const mapPath = path.join(CONTENT_DIR, 'morphir', 'rule-map.yaml');
+  if (!fs.existsSync(mapPath)) return { rules: [] };
+  const raw = fs.readFileSync(mapPath, 'utf-8');
+  return yaml.load(raw) as MorphirMapping;
+}
+
+export function getMorphirRulesForSection(sectionId: string): MorphirRule[] {
+  const mapping = getMorphirMapping();
+  return mapping.rules.filter(r => r.fr2052a.includes(sectionId.toUpperCase()));
+}
+
+export function getSectionsForMorphirRule(ruleName: string): string[] {
+  const mapping = getMorphirMapping();
+  const rule = mapping.rules.find(r => r.rule === ruleName);
+  return rule?.fr2052a ?? [];
 }
 
 export function getSectionRaw(sectionId: string): {

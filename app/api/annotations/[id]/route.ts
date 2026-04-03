@@ -7,11 +7,17 @@ function unauthed() {
   return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
 }
 
+function dbUnavailable() {
+  return NextResponse.json({ error: 'Annotations are not available (no database configured)' }, { status: 503 });
+}
+
 // PUT /api/annotations/[id]
 export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!prisma) return dbUnavailable();
+
   const session = await getServerSession(authOptions);
   if (!session) return unauthed();
 
@@ -51,6 +57,8 @@ export async function DELETE(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!prisma) return dbUnavailable();
+
   const session = await getServerSession(authOptions);
   if (!session) return unauthed();
 

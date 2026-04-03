@@ -1,0 +1,1020 @@
+morphir_source: "finos/morphir-examples src/Morphir/Sample/Reg/LCR/"
+morphir_regulatory_basis: "12 CFR 249 (2014 final rule)"
+morphir_fr2052a_version: "2019-03-31"
+site_fr2052a_version: "2025-02-26"
+
+# Each entry maps one Morphir rule to the regulatory framework and FR 2052a form.
+# status values: confirmed | provisional | needs_review | no_match | not_implemented
+bridge:
+
+  # ── §249.32(a): Retail deposit outflows ──────────────────────────────────────
+
+  - morphir_rule: "32(a)(1)"
+    cfr_section: "§249.32(a)(1)"
+    cfr_topic: "Stable retail deposit outflow"
+    weight: 0.03
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.D.1
+      - O.D.2
+    status: confirmed
+    notes: >
+      §249.32(a)(1) applies a 3% outflow rate to stable retail deposits — those
+      that are FDIC-insured AND held in transactional accounts or accounts with
+      an established depositor relationship. O.D.1 (Transactional Accounts)
+      covers demand deposits for retail and small business customers. O.D.2
+      (Non-Transactional Relationship Accounts) covers retail/small business
+      deposits where the depositor has another product relationship that makes
+      withdrawal unlikely. Both sections use the [Insured] field to distinguish
+      FDIC-insured from uninsured balances; only the insured subset falls under
+      this 3% rule. The form's [Counterparty] field (Retail, Small Business)
+      aligns with the §249.32(a) retail definition. Do not report brokered or
+      sweep deposits in O.D.1/O.D.2; those use O.D.8 or O.D.13.
+
+  - morphir_rule: "32(a)(2)"
+    cfr_section: "§249.32(a)(2)"
+    cfr_topic: "Other retail deposit outflow"
+    weight: 0.10
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.D.3
+    status: confirmed
+    notes: >
+      §249.32(a)(2) applies a 10% outflow rate to less-stable retail deposits —
+      those that are FDIC-insured but held in non-transactional accounts where
+      the depositor does NOT have an established relationship with the bank that
+      would make withdrawal unlikely. O.D.3 (Non-Transactional Non-Relationship
+      Accounts) covers exactly this category: retail and small business deposits
+      in non-transactional accounts lacking an established relationship. As with
+      O.D.1/O.D.2, the [Insured] field distinguishes the insured subset subject
+      to this rate from the uninsured subset subject to §249.32(a)(5). Brokered
+      deposits are excluded from O.D.3 and reported under O.D.8/O.D.13.
+
+  - morphir_rule: "32(a)(3)"
+    cfr_section: "§249.32(a)(3)"
+    cfr_topic: "Brokered retail deposit with reciprocal arrangement"
+    weight: 0.20
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.D.13
+    status: confirmed
+    notes: >
+      §249.32(a)(3) applies a 20% outflow rate to brokered deposits placed on a
+      reciprocal basis (deposit placement networks where each member places an
+      equal amount with other members). O.D.13 (Reciprocal Accounts) explicitly
+      defines this as deposits obtained through deposit placement networks on a
+      reciprocal basis where: (1) for each deposit received, an equal amount is
+      placed with other institutions; and (2) all members set the same interest
+      rate on funds placed. This is a direct, confirmed mapping — the section
+      definition tracks the regulatory provision precisely.
+
+  - morphir_rule: "32(a)(4)"
+    cfr_section: "§249.32(a)(4)"
+    cfr_topic: "Other brokered retail deposit"
+    weight: 0.40
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.D.8
+    status: confirmed
+    notes: >
+      §249.32(a)(4) applies a 40% outflow rate to non-reciprocal brokered retail
+      deposits. O.D.8 (Non-Reciprocal Brokered Accounts) explicitly covers
+      deposits obtained through a deposit broker (as defined in §29 of FDIA,
+      12 U.S.C. 1831f(g)) that are NOT reciprocal arrangements and NOT sweep
+      accounts. The section definition matches the regulatory provision. Note
+      that O.D.8 explicitly excludes wholesale negotiable CDs (see O.W.16) and
+      listing-service deposits where the listing service only provides
+      availability information.
+
+  - morphir_rule: "32(a)(5)"
+    cfr_section: "§249.32(a)(5)"
+    cfr_topic: "Uninsured non-brokered retail deposit"
+    weight: 0.40
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.D.1
+      - O.D.2
+      - O.D.3
+    status: provisional
+    notes: >
+      §249.32(a)(5) applies a 40% outflow rate to retail deposits that are NOT
+      FDIC-insured and NOT brokered. In the 2025 FR 2052a, there is no dedicated
+      section for "uninsured non-brokered retail deposits" — instead, O.D.1,
+      O.D.2, and O.D.3 each capture both insured and uninsured balances, with
+      the [Insured] field distinguishing them. The uninsured subset of O.D.1
+      (transactional accounts), O.D.2 (relationship accounts), and O.D.3
+      (non-relationship accounts) maps to §249.32(a)(5), while the insured
+      subsets map to §249.32(a)(1) and (a)(2). The Morphir predicate likely
+      checks the `insured` flag against `Uninsured`. Provisionally mapped
+      because the form does not segment insured vs. uninsured into distinct
+      line items — the distinction is made via a data field within each section.
+      2019→2025 note: the [Insured] field and its enumerated values have been
+      present across both versions.
+
+  # ── §249.32(b): Unsecured wholesale funding outflow ──────────────────────────
+
+  - morphir_rule: "32(b)"
+    cfr_section: "§249.32(b)"
+    cfr_topic: "Unsecured wholesale funding outflow"
+    weight: 1.00
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.D.6
+      - O.W.9
+      - O.W.10
+      - O.O.21
+    status: provisional
+    notes: >
+      §249.32(b) applies outflow rates (up to 100% for non-operational financial
+      wholesale funding) to unsecured wholesale deposits and funding from
+      non-retail counterparties that are not operational. The weight of 1.0
+      (100%) in Morphir suggests this rule specifically targets the highest-
+      runoff wholesale funding tier (non-operational financial entity deposits).
+      O.D.6 (Non-Operational Account Balances) is the primary mapping: it
+      captures deposits from non-retail/non-small-business counterparties that
+      do not qualify as operational deposits — precisely the category subject to
+      §249.32(b) 100% outflow. O.W.9 (Onshore Borrowing) and O.W.10 (Offshore
+      Borrowing) capture short-term interbank/wholesale borrowings that mature
+      within 30 days and are also subject to §249.32(b). O.O.21 (Other Outflows
+      Related to Structured Transactions) is explicitly defined as "incremental
+      potential outflows under 32(b) of the LRM Standards related to structured
+      transactions." Marked provisional because §249.32(b) is a broad provision
+      covering multiple counterparty types with different rates (financial entity
+      vs. non-financial corporate); the 2025 form spreads these across O.D.6 and
+      various O.W products. Other O.W sections (O.W.8 CP, O.W.16 Wholesale CDs)
+      may also carry 32(b) obligations for sub-30-day maturities, but are not
+      included here without additional analysis.
+
+  # ── §249.32(c): Operational deposit outflow ──────────────────────────────────
+
+  - morphir_rule: "32(c)"
+    cfr_section: "§249.32(c)"
+    cfr_topic: "Operational deposit outflow"
+    weight: 0.20
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.D.4
+      - O.D.7
+    status: confirmed
+    notes: >
+      §249.32(c) applies a 20% outflow rate to operational deposits — deposits
+      from non-retail counterparties held for the purpose of clearing, settlement,
+      custody, or cash management, as defined under the LRM Standards. O.D.4
+      (Operational Account Balances) directly captures operational deposits from
+      non-retail/non-small-business counterparties as defined in the LRM
+      Standards, excluding escrow deposits. O.D.7 (Operational Escrow Accounts)
+      covers the escrow subset of operational deposits (e.g., mortgage escrow,
+      insurance escrow), which is carved out from O.D.4 per the form
+      instructions. Both map to §249.32(c). Note that excess balances in
+      operational accounts (O.D.5) are NOT subject to the 20% operational rate —
+      they are treated as non-operational (§249.32(b)) and reported separately
+      from O.D.4.
+
+  # ── §249.32(d): Subsidiary/affiliate deposits ────────────────────────────────
+
+  - morphir_rule: "32(d)"
+    cfr_section: "§249.32(d)"
+    cfr_topic: "Subsidiary/affiliate deposits"
+    weight: 0.10
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.D.4
+    status: needs_review
+    notes: >
+      §249.32(d) applies outflow rates to deposits placed by unconsolidated
+      subsidiaries or affiliates of the reporting entity, which receive special
+      treatment (lower runoff than fully external wholesale). The 10% weight
+      reflects the assumption that a subsidiary is less likely to withdraw
+      deposits than an arm's-length counterparty. In the 2025 FR 2052a, there
+      is no dedicated "subsidiary deposits" section. Affiliate/subsidiary
+      deposits would be reported in O.D.4 (Operational Account Balances) when
+      they meet the LRM Standards operational deposit definition, using the
+      [Counterparty] field value "Internal." However, the 2025 form's
+      counterparty taxonomy uses "Internal" broadly for intra-group flows,
+      not specifically for unconsolidated subsidiaries vs. branches vs.
+      affiliates. Needs review to confirm whether the 2019→2025 changes
+      introduced any counterparty enumeration that better captures the
+      §249.32(d) affiliate relationship concept.
+
+  # ── §249.32(e)-(f): Secured outflows — HQLA/CB collateral ───────────────────
+
+  - morphir_rule: "32(e)"
+    cfr_section: "§249.32(e)"
+    cfr_topic: "Secured outflow backed by Level 1 HQLA collateral"
+    weight: 0.00
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.S.1
+      - O.S.2
+    status: confirmed
+    notes: >
+      §249.32(e) applies a 0% outflow rate to secured funding transactions
+      (repos, securities lending) that are collateralized by Level 1 HQLA. The
+      rationale: Level 1 assets are the most liquid and the bank can immediately
+      re-finance if the counterparty withdraws. O.S.1 (Repo) covers all
+      repurchase agreements; O.S.2 (Securities Lending) covers securities
+      lending transactions. Both sections have a [Collateral Class] field in
+      the 2025 form that identifies the quality of the collateral pledged. When
+      [Collateral Class] = Level 1, this §249.32(e) rule applies (0% outflow).
+      The 0.00 weight in Morphir is consistent with the regulatory provision.
+      O.S.4 (Collateral Swaps) may also be relevant if the swap involves
+      Level 1 collateral, but O.S.1/O.S.2 are the primary sections.
+
+  - morphir_rule: "32(f)"
+    cfr_section: "§249.32(f)"
+    cfr_topic: "Secured outflow backed by central bank eligible collateral"
+    weight: 0.00
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.S.1
+      - O.S.6
+    status: provisional
+    notes: >
+      §249.32(f) applies a 0% outflow rate to secured funding with certain
+      central bank counterparties or secured by collateral eligible for central
+      bank credit operations. The 0% weight reflects that central bank facilities
+      are presumed stable. O.S.1 (Repo) captures repos with central bank
+      counterparties (reported with [Counterparty] = "Central Bank"). O.S.6
+      (Exceptional Central Bank Operations) covers outstanding secured funding
+      from central banks specifically for exceptional operations (e.g., Fed's
+      BTFP, discount window borrowings beyond normal open market operations).
+      Marked provisional because the boundary between 32(e) (Level 1 backed)
+      and 32(f) (central bank eligible) overlaps: Treasury repos with the Fed
+      could qualify under either. The 2019→2025 form change added sub-product
+      granularity within O.S.6 (FRB, SNB, BOE, ECB, etc.) that improves
+      traceability beyond the 2019 form.
+
+  # ── §249.32(g)(1)-(9): Maturity-differentiated secured outflows ──────────────
+
+  - morphir_rule: "32(g)(1)"
+    cfr_section: "§249.32(g)(1)"
+    cfr_topic: "Maturity-differentiated secured outflow — Level 1 collateral"
+    weight: 0.00
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.S.1
+      - O.S.2
+    status: provisional
+    notes: >
+      §249.32(g)(1) calculates additional outflow for secured transactions
+      (primarily repos and securities lending) where the collateral is Level 1
+      HQLA. The 0% weight means: if the collateral is Level 1, the bank is
+      expected to roll over the position and no additional net outflow is
+      recorded. In the 2025 FR 2052a, O.S.1 (Repo) and O.S.2 (Securities
+      Lending) are the form sections that capture these transactions; the
+      [Collateral Class] field distinguishes Level 1 from lower-quality
+      collateral. Multiple §249.32(g) subrules (g)(1)-(9) all map to the
+      same O.S sections; the specific subrule that applies is determined at
+      calculation time by the [Collateral Class] field value.
+
+  - morphir_rule: "32(g)(2)"
+    cfr_section: "§249.32(g)(2)"
+    cfr_topic: "Maturity-differentiated secured outflow — central bank eligible collateral"
+    weight: 0.00
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.S.1
+      - O.S.6
+    status: provisional
+    notes: >
+      §249.32(g)(2) captures secured transactions backed by central bank
+      eligible collateral (but not Level 1 HQLA). The 0% outflow reflects
+      the assumption these can be rolled over via central bank facilities.
+      O.S.1 (Repo) captures repos generally; O.S.6 (Exceptional Central Bank
+      Operations) captures secured borrowing specifically from central banks.
+      The [Counterparty] = "Central Bank" field in O.S.1 helps identify
+      central bank repo transactions. Collateral Class in the transaction
+      would identify eligibility for central bank programs.
+
+  - morphir_rule: "32(g)(3)"
+    cfr_section: "§249.32(g)(3)"
+    cfr_topic: "Maturity-differentiated secured outflow — Level 2A collateral"
+    weight: 0.00
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.S.1
+      - O.S.2
+    status: provisional
+    notes: >
+      §249.32(g)(3) applies to secured transactions backed by Level 2A HQLA
+      (e.g., certain GSE/agency securities, sovereign debt with 20% risk
+      weight). Despite the higher collateral quality than Level 2B, the 0%
+      weight indicates these are expected to roll over. O.S.1 (Repo) and
+      O.S.2 (Securities Lending) are the relevant form sections; the
+      [Collateral Class] field would indicate Level 2A. As with (g)(1) and
+      (g)(2), the subrule applied depends on collateral quality at calculation
+      time.
+
+  - morphir_rule: "32(g)(4)"
+    cfr_section: "§249.32(g)(4)"
+    cfr_topic: "Maturity-differentiated secured outflow — Level 2B collateral"
+    weight: 0.00
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.S.1
+      - O.S.2
+    status: provisional
+    notes: >
+      §249.32(g)(4) applies to secured transactions backed by Level 2B HQLA
+      (e.g., certain non-agency RMBS, publicly traded equities in major
+      indices). Weight of 0.00 is reported here but in practice §249.32(g)(4)
+      transactions may have a non-zero outflow in the full LCR calculation
+      — the Morphir predicate may be incomplete or apply only to a subset.
+      O.S.1 (Repo) and O.S.2 (Securities Lending) are the relevant form
+      sections with [Collateral Class] = Level 2B. Collateral Swaps (O.S.4)
+      also possible where the collateral received is Level 2B.
+
+  - morphir_rule: "32(g)(5)"
+    cfr_section: "§249.32(g)(5)"
+    cfr_topic: "Maturity-differentiated secured outflow — sovereign/central bank/multilateral collateral"
+    weight: 0.00
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.S.1
+      - O.S.2
+    status: provisional
+    notes: >
+      §249.32(g)(5) covers secured transactions backed by sovereign, central
+      bank, or multilateral development bank collateral that does not qualify
+      as Level 1 or Level 2A (e.g., non-domestic sovereign with 20% risk
+      weight, or sovereign that doesn't meet other Level 1 criteria). Weight
+      of 0.00. O.S.1 (Repo) and O.S.2 (Securities Lending) are the relevant
+      form sections. The FR 2052a's [Collateral Class] field uses LRM Standards
+      asset categories; the specific sovereign collateral categories within
+      those standards would identify transactions subject to (g)(5).
+
+  - morphir_rule: "32(g)(6)"
+    cfr_section: "§249.32(g)(6)"
+    cfr_topic: "Maturity-differentiated secured outflow — non-sovereign, non-HQLA collateral"
+    weight: 0.00
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.S.1
+    status: provisional
+    notes: >
+      §249.32(g)(6) covers secured transactions backed by non-sovereign,
+      non-HQLA collateral (e.g., corporate bonds below HQLA threshold,
+      asset-backed securities that are not Level 2B eligible). The 0% weight
+      in Morphir may reflect that for this collateral quality the run-off
+      assumption in the LCR engine assigns zero additional outflow (the
+      position is already captured at par under the base outflow rules).
+      O.S.1 (Repo) is the primary form section. O.S.11 (Other Secured
+      Financing Transactions) may also apply for transactions not fitting
+      the repo or securities lending definitions.
+
+  - morphir_rule: "32(g)(7)"
+    cfr_section: "§249.32(g)(7)"
+    cfr_topic: "Maturity-differentiated secured outflow — equity collateral"
+    weight: 0.00
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.S.1
+    status: provisional
+    notes: >
+      §249.32(g)(7) covers secured transactions backed by equity collateral
+      that is not Level 2B HQLA (e.g., equities not in major indices, or
+      exchange-traded equities outside US/developed markets). Weight 0.00 in
+      Morphir. O.S.1 (Repo) is the primary form section. Note that equity
+      collateral used in repos is reported in O.S.1 with [Collateral Class]
+      indicating the equity category per LRM Standards asset categories.
+
+  - morphir_rule: "32(g)(8)"
+    cfr_section: "§249.32(g)(8)"
+    cfr_topic: "Maturity-differentiated secured outflow — all other collateral"
+    weight: 0.00
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.S.1
+      - O.S.11
+    status: provisional
+    notes: >
+      §249.32(g)(8) is the catch-all for secured transactions backed by any
+      other collateral not covered by (g)(1)-(7). Weight 0.00 in Morphir.
+      O.S.1 (Repo) covers repos; O.S.11 (Other Secured Financing Transactions)
+      covers all other secured financing arrangements that do not meet the
+      definitions of O.S.1 through O.S.10. In practice, any secured outflow
+      with unusual collateral (e.g., whole loans, intangibles used as repo
+      collateral in certain non-US markets) would fall here.
+
+  - morphir_rule: "32(g)(9)"
+    cfr_section: "§249.32(g)(9)"
+    cfr_topic: "Maturity-differentiated secured outflow — domestic sovereign collateral"
+    weight: 0.00
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.S.1
+      - O.S.2
+    status: provisional
+    notes: >
+      §249.32(g)(9) covers secured transactions specifically backed by domestic
+      sovereign debt (i.e., US Treasuries and certain US agency securities
+      when treated as domestic sovereign). This overlaps with (g)(1) Level 1
+      and (g)(5) sovereign categories; the Morphir code may distinguish a
+      separate domestic vs. foreign sovereign path. Weight 0.00. O.S.1 (Repo)
+      is the primary section for Treasury repos; O.S.2 (Securities Lending)
+      for Treasury security lending. 2019→2025 form note: no structural change
+      in the O.S.1/O.S.2 definitions affecting this mapping.
+
+  # ── §249.32(h): Credit and liquidity facility outflows ───────────────────────
+
+  - morphir_rule: "32(h)(3)"
+    cfr_section: "§249.32(h)(3)"
+    cfr_topic: "Committed credit facility outflow — non-financial corporates and others"
+    weight: 0.05
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.O.4
+    status: confirmed
+    notes: >
+      §249.32(h)(3) applies a 5% drawdown assumption to committed credit
+      facilities extended to non-financial corporates and certain other
+      counterparties (the Morphir rule numbering as (h)(3) may differ from
+      the final CFR paragraph numbering, which assigns different rates by
+      counterparty type). O.O.4 (Credit Facilities) explicitly covers
+      "committed credit facilities, as defined in the LRM Standards" and
+      distinguishes them from liquidity facilities (O.O.5). The [Counterparty]
+      field in O.O.4 identifies the borrower type (e.g., Non-Financial
+      Corporate, Sovereign, PSE, etc.). The section instructs reporters to use
+      [Maturity Bucket] to indicate the earliest draw date, consistent with
+      the LCR's 30-day horizon. Direct, confirmed mapping.
+
+  - morphir_rule: "32(h)(4)"
+    cfr_section: "§249.32(h)(4)"
+    cfr_topic: "Committed liquidity facility outflow"
+    weight: 0.25
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.O.5
+    status: confirmed
+    notes: >
+      §249.32(h)(4) applies a 25% (or higher for certain counterparties)
+      drawdown assumption to committed liquidity facilities. O.O.5 (Liquidity
+      Facilities) explicitly covers "committed liquidity facilities, as defined
+      in the LRM Standards" and states: "if facilities have aspects of both
+      credit and liquidity facilities, the facility must be classified as a
+      liquidity facility." The [Counterparty] field distinguishes borrower
+      types. The form includes VRDN-related facilities and standby purchase
+      agreements. Direct, confirmed mapping. Note that O.O.18 (Unfunded Term
+      Margin) is carved out from O.O.5 per the 2025 form instructions.
+
+  # ── §249.32(l): Other contractual cash outflows ──────────────────────────────
+
+  - morphir_rule: "32(l)"
+    cfr_section: "§249.32(l)"
+    cfr_topic: "Other contractual cash outflows"
+    weight: 0.00
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.O.22
+    status: provisional
+    notes: >
+      §249.32(l) covers any other contractual obligations that could result in
+      cash outflows not captured by §249.32(a)-(k). The 0.00 weight in Morphir
+      reflects that the rule identifies the transaction type but the specific
+      outflow rate may be separately determined (or the Morphir rule may flag
+      these for manual review rather than applying an automated rate). O.O.22
+      (Other Cash Outflows) is the catch-all section for "any other material
+      cash outflows not reported in any other line." The form instructs reporters
+      to describe these outflows in comments on a monthly basis. Marked
+      provisional because §249.32(l) could also encompass O.O.21 (Other
+      Outflows Related to Structured Transactions, which already references
+      LRM 32(b) structured outflows) and O.O.19 (Interest & Dividends Payable).
+      The Morphir predicate's specific logic would determine the narrower scope.
+
+  # ── §249.33(f): Secured lending unwind (outflow treatment) ──────────────────
+
+  - morphir_rule: "33(f)(1)(iii)"
+    cfr_section: "§249.33(f)(1)(iii)"
+    cfr_topic: "Secured lending unwind — Level 1 collateral (no additional outflow)"
+    weight: 0.00
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.S.1
+      - O.S.2
+    status: provisional
+    notes: >
+      §249.33(f)(1)(iii) determines the outflow rate for maturing secured
+      lending transactions where the collateral pledged is Level 1 HQLA. When
+      a repo or securities lending transaction matures, the bank must return
+      cash (an outflow); but because the collateral is Level 1, it is assumed
+      the transaction will be fully renewed (0% net outflow). In the 2025 FR
+      2052a, O.S.1 (Repo) reports repos as outflows (cash received = liability),
+      and O.S.2 (Securities Lending) reports securities lending. When these
+      transactions mature, the [Maturity Bucket] field captures the timing.
+      The [Collateral Class] = Level 1 identifies the relevant transactions.
+      Marked provisional because §249.33(f) appears in Outflows.elm (an outflow
+      rule) but conceptually relates to inflow unwinding; the form captures the
+      gross transaction rather than netting the renewal assumption.
+
+  - morphir_rule: "33(f)(1)(iv)"
+    cfr_section: "§249.33(f)(1)(iv)"
+    cfr_topic: "Secured lending unwind — Level 2A collateral (15% additional outflow)"
+    weight: 0.15
+    category: outflow
+    morphir_module: Outflows
+    fr2052a_sections:
+      - O.S.1
+      - O.S.2
+    status: provisional
+    notes: >
+      §249.33(f)(1)(iv) applies a 15% additional outflow to maturing secured
+      lending transactions backed by Level 2A HQLA. Unlike Level 1 (0%), Level
+      2A collateral is presumed to have 15% of the position not renewed at
+      maturity, reflecting lower liquidity. In the 2025 FR 2052a, O.S.1 (Repo)
+      and O.S.2 (Securities Lending) capture these transactions with
+      [Collateral Class] = Level 2A. The 15% outflow assumption is applied
+      during LCR calculation using the [Market Value] and [Collateral Value]
+      fields. As with (f)(1)(iii), this is an outflow rule (secured funding
+      that may not roll over), mapped to the same O.S sections with the
+      collateral quality distinguishing the applicable subrule.
+
+  # ── §249.20(a): Level 1 HQLA stock calculation ───────────────────────────────
+
+  - morphir_rule: "20(a)(1)"
+    cfr_section: "§249.20(a)(1)"
+    cfr_topic: "Level 1 HQLA — coins, banknotes, central bank reserves"
+    weight: 1.0
+    category: hqla
+    morphir_module: Inflows
+    fr2052a_sections:
+      - I.A.3
+      - I.A.1
+    status: provisional
+    notes: >
+      §249.20(a)(1) identifies coins, banknotes, and central bank reserves
+      (including Federal Reserve balances) as Level 1 HQLA with a 100%
+      credit (no haircut). In the 2025 FR 2052a, I.A.3 (Unrestricted Reserve
+      Balances) directly captures reserve bank balances at the Fed and foreign
+      withdrawable reserves at other central banks — this is the primary form
+      section for §249.20(a)(1) assets. I.A.1 (Unencumbered Assets) captures
+      currency and coin as well as other liquid assets that are free of legal
+      or contractual restrictions. The weight of 1.0 in Morphir indicates no
+      haircut (full HQLA credit). Marked provisional because §249.20 is a
+      HQLA calculation rule (determining what counts as HQLA and at what
+      haircut) while the FR 2052a reports the stock of assets; the conceptual
+      layers differ but the data source sections are clear.
+
+  - morphir_rule: "20(a)(3)-(6)"
+    cfr_section: "§249.20(a)(3)–(6)"
+    cfr_topic: "Level 1 HQLA — specific qualifying instruments (Treasuries, agency, sovereign)"
+    weight: 1.0
+    category: hqla
+    morphir_module: Inflows
+    fr2052a_sections:
+      - I.A.1
+    status: provisional
+    notes: >
+      §249.20(a)(3)-(6) covers specific Level 1 HQLA instrument categories:
+      (a)(3) US Treasury securities; (a)(4) certain US agency securities; (a)(5)
+      domestic sovereign debt meeting risk weight criteria; (a)(6) certain
+      marketable securities backed by sovereigns. Weight 1.0 = no haircut.
+      In the 2025 FR 2052a, I.A.1 (Unencumbered Assets) is the primary
+      reporting line for all unencumbered securities, including Treasuries,
+      agencies, and qualifying sovereign debt. The form uses the [Product] field
+      to identify asset type, and assets that are already encumbered are
+      excluded from I.A.1 (they appear in I.A.7 Encumbered Assets). The HQLA
+      eligibility determination (§249.20) is layered on top of the gross asset
+      inventory reported in I.A.1. Multiple §249.20 subsections aggregate here
+      because the FR 2052a does not subdivide I.A.1 by LCR Level 1 vs.
+      Level 2A/2B — that categorization happens in the LCR calculation engine
+      using the asset type and counterparty information.
+
+  # ── §249.22(b)(3): HQLA unwind adjustments ──────────────────────────────────
+
+  - morphir_rule: "22(b)(3)L1"
+    cfr_section: "§249.22(b)(3)"
+    cfr_topic: "HQLA unwind adjustment — Level 1 collateral (secured lending)"
+    weight: -1.0
+    category: hqla
+    morphir_module: Inflows
+    fr2052a_sections:
+      - I.S.1
+      - I.S.2
+    status: needs_review
+    notes: >
+      §249.22(b)(3) governs the HQLA unwind adjustment: when a bank holds
+      securities (received as collateral in secured lending) that qualify as
+      HQLA but are encumbered, the LCR calculation must adjust the HQLA stock
+      to reflect the expected return of those assets at transaction maturity.
+      The -1.0 weight (negative) indicates this rule REDUCES the HQLA count
+      (or offsets an outflow) by 100% of the Level 1 collateral involved.
+      In the 2025 FR 2052a, I.S.1 (Reverse Repo) reports securities received
+      as collateral in reverse repos, and I.S.2 (Securities Borrowing) reports
+      securities received in lending transactions. These are the data sources
+      for the §249.22(b)(3) calculation. However, §249.22(b)(3) is a
+      CALCULATION adjustment to the HQLA pool — it does not correspond to a
+      specific FR 2052a line item but rather derives from the I.S and I.A
+      data in the LCR calculation engine. Needs review: the 2019→2025 form
+      changes may have altered how collateral received is tracked in I.S.1
+      vs. I.A.7, affecting the calculation chain.
+
+  - morphir_rule: "22(b)(3)L2a"
+    cfr_section: "§249.22(b)(3)"
+    cfr_topic: "HQLA unwind adjustment — Level 2A collateral (secured lending)"
+    weight: -0.85
+    category: hqla
+    morphir_module: Inflows
+    fr2052a_sections:
+      - I.S.1
+      - I.S.2
+      - I.S.4
+    status: needs_review
+    notes: >
+      Same §249.22(b)(3) HQLA unwind provision as "22(b)(3)L1" but applied to
+      Level 2A collateral at an 85% credit (reflecting the 15% Level 2A
+      haircut in §249.21). The -0.85 weight indicates the adjustment subtracts
+      85% of Level 2A collateral value from the HQLA pool. Data sources in
+      the 2025 FR 2052a: I.S.1 (Reverse Repo) for reverse repos backed by
+      Level 2A securities, I.S.2 (Securities Borrowing) for Level 2A
+      securities received in lending, and I.S.4 (Collateral Swaps) for
+      collateral upgrade trades where Level 2A is received. As with "22(b)(3)L1",
+      this is a HQLA calculation adjustment without a dedicated form line item.
+      The [Collateral Class] field on I.S sections distinguishes Level 2A.
+
+  - morphir_rule: "22(b)(3)L2b"
+    cfr_section: "§249.22(b)(3)"
+    cfr_topic: "HQLA unwind adjustment — Level 2B collateral (secured lending)"
+    weight: -0.5
+    category: hqla
+    morphir_module: Inflows
+    fr2052a_sections:
+      - I.S.1
+      - I.S.2
+      - I.S.4
+    status: needs_review
+    notes: >
+      Same §249.22(b)(3) HQLA unwind provision applied to Level 2B collateral
+      at 50% credit (reflecting the 50% Level 2B haircut in §249.21). The
+      -0.50 weight indicates the adjustment subtracts 50% of Level 2B
+      collateral value from the HQLA pool. Data sources: I.S.1 (Reverse Repo),
+      I.S.2 (Securities Borrowing), and I.S.4 (Collateral Swaps) where Level 2B
+      collateral is received. Level 2B assets include certain non-agency RMBS
+      and publicly traded equities in major indices. As with the other
+      22(b)(3) variants, this rule operates as a HQLA calculation adjustment,
+      not a directly reportable line item. The FR 2052a captures the underlying
+      transaction data; the §249.22(b)(3) adjustment is applied in the LCR
+      calculation layer.
+
+  # ── §249.20(b)-(c): Level 2A and Level 2B HQLA stock ───────────────────────
+
+  - morphir_rule: "20(b)"
+    cfr_section: "§249.20(b)"
+    cfr_topic: "Level 2A HQLA — GSE/agency MBS, sovereign debt meeting 20% risk weight"
+    weight: 0.85
+    category: hqla
+    morphir_module: Inflows
+    fr2052a_sections:
+      - I.A.1
+    status: provisional
+    notes: >
+      §249.20(b) defines Level 2A HQLA and applies an 85% credit (15% haircut).
+      Level 2A assets include: certain US GSE/agency debt and MBS, sovereign
+      or central bank debt meeting 20% risk weight threshold, and certain
+      multilateral development bank securities. In the 2025 FR 2052a, I.A.1
+      (Unencumbered Assets) reports all unencumbered assets free of restrictions.
+      Level 2A securities appear in I.A.1 alongside Level 1 and Level 2B
+      assets; the LCR calculation engine applies the appropriate haircut based
+      on the asset category. The 0.85 weight in Morphir corresponds to the
+      85% credit applied to Level 2A assets. Marked provisional because the
+      HQLA level designation is a calculation input, not directly distinguished
+      in the form's line items — the form reports gross fair market value in
+      I.A.1 and the HQLA level is determined separately.
+
+  - morphir_rule: "20(c)"
+    cfr_section: "§249.20(c)"
+    cfr_topic: "Level 2B HQLA — non-agency RMBS, publicly traded equities"
+    weight: 0.5
+    category: hqla
+    morphir_module: Inflows
+    fr2052a_sections:
+      - I.A.1
+    status: provisional
+    notes: >
+      §249.20(c) defines Level 2B HQLA and applies a 50% credit (50% haircut).
+      Level 2B assets include: certain non-agency RMBS meeting specific criteria
+      (investment grade, not issued by the bank itself, historical price
+      stability), publicly traded common equity shares in major stock indices,
+      and certain high-quality corporate debt. Available only to Advanced
+      Approaches banks under the US LCR rule. In the 2025 FR 2052a, I.A.1
+      (Unencumbered Assets) captures these assets along with Level 1 and 2A
+      assets. The 0.50 weight reflects the 50% HQLA credit. As with §249.20(b),
+      the Level 2B designation is determined at calculation time from the
+      asset type information in I.A.1.
+
+  # ── §249.33(b)-(c): Secured lending inflows ─────────────────────────────────
+
+  - morphir_rule: "33(b)"
+    cfr_section: "§249.33(b)"
+    cfr_topic: "Secured lending inflow — non-maturity/Level 1 backed"
+    weight: 1.0
+    category: inflow
+    morphir_module: Inflows
+    fr2052a_sections:
+      - I.S.1
+      - I.S.2
+    status: confirmed
+    notes: >
+      §249.33(b) governs inflows from secured lending transactions at 100%
+      of the outstanding principal for transactions backed by Level 1 HQLA
+      (the borrower will return the collateral and the bank receives cash).
+      The 100% rate reflects that these transactions are expected to wind down
+      fully — the counterparty needs to return the Level 1 assets. In the 2025
+      FR 2052a, I.S.1 (Reverse Repo) reports reverse repurchase agreements
+      where the bank has lent cash and will receive it back along with
+      collateral. I.S.2 (Securities Borrowing) reports securities borrowing
+      where the bank has posted cash collateral. The [Maturity Bucket] field
+      captures when the cash inflow is expected. The [Collateral Class] field
+      identifies the Level 1 backing. Direct, confirmed mapping.
+
+  - morphir_rule: "33(c)"
+    cfr_section: "§249.33(c)"
+    cfr_topic: "Secured lending inflow — pooled/commingled collateral structure"
+    weight: 0.5
+    category: inflow
+    morphir_module: Inflows
+    fr2052a_sections:
+      - I.S.1
+      - I.S.2
+    status: provisional
+    notes: >
+      §249.33(c) applies a 50% inflow rate to secured lending where the
+      specific collateral cannot be identified (pooled or commingled structures,
+      e.g., triparty repos where collateral is from a diversified pool and the
+      specific assets are not known). The lower 50% rate reflects uncertainty
+      about whether the collateral is HQLA-eligible and can be easily resold.
+      In the 2025 FR 2052a, I.S.1 (Reverse Repo) captures triparty and pooled
+      repos; the specific collateral type would be indicated in [Collateral
+      Class]. Marked provisional because the 2025 form does not have a separate
+      line for "pooled collateral" repos vs. identified-collateral repos —
+      the distinction depends on the counterparty and structure, not a dedicated
+      form section. The 2019→2025 form has not introduced a distinct pooled
+      collateral line item.
+
+  # ── §249.33(d): Unsecured wholesale inflows ─────────────────────────────────
+
+  - morphir_rule: "33(d)(1)"
+    cfr_section: "§249.33(d)(1)"
+    cfr_topic: "Unsecured wholesale inflow — non-financial corporate"
+    weight: 1.0
+    category: inflow
+    morphir_module: Inflows
+    fr2052a_sections:
+      - I.U.1
+      - I.U.2
+      - I.U.6
+    status: confirmed
+    notes: >
+      §249.33(d)(1) governs inflows from maturing unsecured loans and deposits
+      placed with other institutions, with a 100% rate for non-financial
+      corporate counterparties (the bank receives back cash it has placed).
+      I.U.1 (Onshore Placements) captures domestic interbank placements (fed
+      funds sold, domestic placements in the wholesale market). I.U.2 (Offshore
+      Placements) captures Eurodollar placements and similar offshore unsecured
+      wholesale. I.U.6 (Other Loans) covers other unsecured loans not fitting
+      the placement definitions. The [Counterparty] field distinguishes non-
+      financial corporate from other counterparty types. Confirmed mapping
+      because the form sections directly describe outflows of cash that are
+      being returned — the inflow-side analog of unsecured wholesale funding.
+
+  - morphir_rule: "33(d)(2)"
+    cfr_section: "§249.33(d)(2)"
+    cfr_topic: "Unsecured wholesale inflow — financial entity counterparty"
+    weight: 1.0
+    category: inflow
+    morphir_module: Inflows
+    fr2052a_sections:
+      - I.U.1
+      - I.U.2
+    status: provisional
+    notes: >
+      §249.33(d)(2) applies a 100% inflow rate to maturing unsecured wholesale
+      amounts owed to the reporting entity by financial entity counterparties
+      (banks, broker-dealers, investment companies, etc.). In the 2025 FR 2052a,
+      I.U.1 (Onshore Placements) and I.U.2 (Offshore Placements) capture
+      interbank/wholesale placements generally. The [Counterparty] field (Bank,
+      Broker-Dealer, Investment Company or Advisor, etc.) would identify the
+      financial entity counterparties. Marked provisional because §249.33(d)(1)
+      and (d)(2) map to the same I.U.1/I.U.2 sections — the distinction between
+      the subsections is made via the [Counterparty] field, not via separate
+      form line items. The Morphir code likely checks `counterpartyType` against
+      a list of financial entity types to route between (d)(1) and (d)(2).
+
+  # ── §249.33(e): Broker-dealer segregated account inflow ──────────────────────
+
+  - morphir_rule: "33(e)"
+    cfr_section: "§249.33(e)"
+    cfr_topic: "Broker-dealer segregated account inflow"
+    weight: 1.0
+    category: inflow
+    morphir_module: Inflows
+    fr2052a_sections:
+      - I.O.5
+    status: confirmed
+    notes: >
+      §249.33(e) governs inflows from broker-dealer customer segregated accounts
+      — when the calculation of required segregated amounts decreases, the
+      resulting funds become available to the bank. The 100% rate reflects full
+      credit for this inflow. In the 2025 FR 2052a, I.O.5 (Lock-up Balance) is
+      explicitly defined as "inflows related to broker-dealer segregated accounts,
+      as set forth in the LRM Standards." The form instructs that the [Maturity
+      Bucket] must reflect the next scheduled recalculation date under applicable
+      legal requirements (e.g., SEC Rule 15c3-3). Direct, confirmed mapping —
+      I.O.5 is purpose-built for this regulatory requirement.
+
+  # ── §249.33(g): Other cash inflows ───────────────────────────────────────────
+
+  - morphir_rule: "33(g)"
+    cfr_section: "§249.33(g)"
+    cfr_topic: "Other contractual cash inflows"
+    weight: 1.0
+    category: inflow
+    morphir_module: Inflows
+    fr2052a_sections:
+      - I.O.9
+    status: provisional
+    notes: >
+      §249.33(g) captures any other contractual cash inflows not covered by
+      §249.33(b)-(f). The 100% rate (inflows are fully credited up to the
+      LCR's 75% inflow cap). In the 2025 FR 2052a, I.O.9 (Other Cash Inflows)
+      is the catch-all section: "refers to other contractual cash inflows that
+      do not adhere to the definitions of the products outlined above." The
+      form instructs reporters to contact the supervisory team to confirm
+      whether the associated cash flow should be reported here. Marked
+      provisional because I.O.9 is a catch-all that supervisors may expand
+      or reallocate on a case-by-case basis; the actual application of §249.33(g)
+      in Morphir depends on what the predicate excludes vs. includes.
+
+  # ── §249.33(h): Net derivative cash inflow ───────────────────────────────────
+
+  - morphir_rule: "33(h)"
+    cfr_section: "§249.33(h)"
+    cfr_topic: "Net derivative cash inflow (zero weight)"
+    weight: 0.0
+    category: inflow
+    morphir_module: Inflows
+    fr2052a_sections:
+      - I.O.7
+    status: confirmed
+    notes: >
+      §249.33(h) addresses derivative cash inflows. Under the US LCR rule,
+      banks MAY count net derivative inflows, but only to the extent they
+      offset derivative outflows, and the net derivative inflow amount is
+      capped at the net derivative outflow amount. The 0.0 weight in Morphir
+      reflects that derivatives are net-zero in the LCR calculation (inflows
+      cannot exceed outflows; the cap effectively creates a 0% net positive
+      contribution from derivatives). In the 2025 FR 2052a, I.O.7 (Net 30-Day
+      Derivative Receivables) is the explicit section for "the net derivative
+      cash inflow amount, as set forth in the LRM Standards." Its outflow
+      counterpart is O.O.20 (Net 30-Day Derivative Payables). Direct, confirmed
+      mapping — I.O.7 exists precisely to capture the §249.33(h) calculation
+      input.
+
+# ── Rules whose predicates are commented out in Morphir ─────────────────────────
+
+not_implemented:
+  - morphir_rule: "32(h)(1)"
+    cfr_section: "§249.32(h)(1)"
+    cfr_topic: "Committed credit facility — financial entity (higher runoff)"
+    notes: >
+      Predicate commented out in Outflows.elm. §249.32(h)(1) applies a higher
+      drawdown rate (typically 40% per the LCR rule) to committed credit
+      facilities extended to financial sector entities, including banks and
+      broker-dealers. The form section O.O.4 (Credit Facilities) would capture
+      these transactions with [Counterparty] = Bank, Broker-Dealer, etc., but
+      the Morphir rule to apply the 40% weight is not implemented. This leaves
+      the financial-entity credit facility drawdown unimplemented in the Morphir
+      LCR sample.
+
+  - morphir_rule: "32(h)(2)"
+    cfr_section: "§249.32(h)(2)"
+    cfr_topic: "Committed credit facility — retail and small business (5%)"
+    notes: >
+      Predicate commented out in Outflows.elm. §249.32(h)(2) (per the Morphir
+      numbering scheme) covers committed credit facilities to retail and small
+      business customers at a 5% drawdown rate. Note: the implemented rule
+      "32(h)(3)" also references a 5% non-financial rate; the exact CFR
+      paragraph alignment between Morphir's numbering and the final 12 CFR 249
+      text may differ. The form section O.O.4 (Credit Facilities) would capture
+      retail/small business facility commitments with the appropriate [Counterparty]
+      values.
+
+  - morphir_rule: "32(h)(5)"
+    cfr_section: "§249.32(h)(5)"
+    cfr_topic: "Committed liquidity facility — other counterparty types"
+    notes: >
+      Predicate commented out in Outflows.elm. §249.32(h)(5) per Morphir
+      numbering likely covers liquidity facility drawdowns for counterparty
+      types not addressed in the implemented §249.32(h)(4) rule (e.g.,
+      government-sponsored entities, financial market utilities, or other
+      entity types subject to different drawdown rates). The form section
+      O.O.5 (Liquidity Facilities) would capture these with the appropriate
+      [Counterparty] field values.
+
+  - morphir_rule: "32(i)"
+    cfr_section: "§249.32(i)"
+    cfr_topic: "Retail mortgage commitments"
+    notes: >
+      Predicate commented out in Outflows.elm. §249.32(i) covers retail
+      mortgage commitments — legally binding commitments to originate retail
+      mortgage loans. The 2025 FR 2052a has an explicit section for these:
+      O.O.6 (Retail Mortgage Commitments), which is defined as "contractual
+      commitments made by the reporting entity to extend credit for the purpose
+      of originating or purchasing residential mortgage loans." This would be
+      a clean confirmed mapping once implemented.
+
+  - morphir_rule: "32(j)"
+    cfr_section: "§249.32(j)"
+    cfr_topic: "Net changes in fair value of derivative positions"
+    notes: >
+      Predicate commented out in Outflows.elm. §249.32(j) covers potential
+      liquidity needs from adverse mark-to-market movements on derivatives
+      positions (collateral calls). In the 2025 FR 2052a, multiple sections
+      relate to this: O.O.8 (MTM Impact on Derivative Positions, "the absolute
+      value of the largest 30-consecutive calendar day cumulative net mark-to-
+      market change in derivatives"), O.O.13-O.O.16 (Total Collateral Required
+      Due to Notch Downgrade at 1, 2, 3 notches and change in financial
+      condition), and O.O.9-O.O.12 (Loss of Rehypothecation Rights at
+      corresponding downgrade scenarios). The FR 2052a captures these in
+      substantially more granular form than a single §249.32(j) rule would suggest.
+
+  - morphir_rule: "32(k)"
+    cfr_section: "§249.32(k)"
+    cfr_topic: "Collateral posting obligations for derivatives (downgrade triggers)"
+    notes: >
+      Predicate commented out in Outflows.elm. §249.32(k) covers the additional
+      collateral that would need to be posted on derivative contracts if the
+      bank's credit rating were downgraded by 1, 2, or 3 notches. In the 2025
+      FR 2052a, O.O.13 (Total Collateral Required Due to 1 Notch Downgrade),
+      O.O.14 (2 Notch Downgrade), O.O.15 (3 Notch Downgrade), and O.O.16
+      (Change in Financial Condition) capture this information across four
+      separate line items — considerably more granular than a single Morphir
+      rule would suggest. O.O.9-O.O.12 (Loss of Rehypothecation Rights) also
+      relate to §249.32(k) scenarios.
+
+version_notes: |
+  The Morphir sample references FR 2052a version 2019-03-31. This site uses
+  version 2025-02-26. Three interim revisions occurred (2022-04-29, 2023-03-01,
+  2025-02-26). Mappings in this file are built against the 2025 form structure.
+  Where section IDs, definitions, or counterparty enumerations have changed
+  between versions, the notes field on each entry documents the discrepancy.
+
+  Key structural differences between the 2019 and 2025 form that affect mappings:
+
+  1. HQLA asset categories: The 2025 form explicitly uses LRM Standards asset
+     categories (Level 1, Level 2A, Level 2B, Non-HQLA) as [Sub-Product] and
+     [Collateral Class] enumeration values in I.A, I.S, and O.S sections. These
+     align more precisely with §249.20 HQLA definitions than the 2019 form, which
+     used less standardized labeling. This improves traceability for the §249.20
+     and §249.32(g) rules.
+
+  2. O.S.6 (Exceptional Central Bank Operations): This section added sub-product
+     granularity (FRB, SNB, BOE, ECB, etc.) post-2019, improving traceability
+     for §249.32(f) central bank-backed secured transactions.
+
+  3. O.O sections expansion: The 2025 form has more granular derivative-related
+     sections (O.O.8 MTM Impact, O.O.9-O.O.16 downgrade collateral scenarios,
+     O.O.20 Net 30-Day Derivative Payables) than the 2019 form. The Morphir
+     not-implemented rules §249.32(j) and §249.32(k) would each map to multiple
+     2025 form sections if implemented.
+
+  4. Counterparty taxonomy: The [Counterparty] enumeration has been standardized
+     across all O.D, O.W, O.S, O.O, I.A, I.U, I.S, and I.O sections in the
+     2025 form, with a consistent list (Retail, Small Business, Non-Financial
+     Corporate, Sovereign, Central Bank, GSE, PSE, MDB, Other Supranational,
+     Pension Fund, Bank, Broker-Dealer, Investment Company or Advisor, Financial
+     Market Utility, Other Supervised Non-Bank Financial Entity, Non-Regulated
+     Fund, Internal). This consistency improves applicability of counterparty-
+     based Morphir predicates (e.g., for §249.32(b), (c), (d), (h) rules).
+
+  5. Deposit section restructuring: The 2025 form has 15 deposit subcategories
+     (O.D.1-O.D.15) covering transactional, relationship, non-relationship,
+     operational, excess operational, non-operational, operational escrow,
+     brokered (non-reciprocal), affiliated sweep (stable/less stable),
+     non-affiliated sweep, other product sweep, reciprocal, third-party, and
+     other accounts. The 2019 form had fewer such subcategories. The mapping of
+     §249.32(a)(1)-(5) to specific O.D sections reflects 2025 form structure;
+     these same regulatory provisions may have mapped to fewer, broader sections
+     in the 2019 form.

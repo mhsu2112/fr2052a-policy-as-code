@@ -1,0 +1,334 @@
+# Derived from regulatory-bridge.yaml — do not edit manually.
+# Regenerate with: npm run derive-rule-map
+# Includes only confirmed/provisional rules with non-empty fr2052a_sections.
+rules:
+  - rule: 32(a)(1)
+    cfr: §249.32(a)(1)
+    weight: 0.03
+    fr2052a:
+      - O.D.1
+      - O.D.2
+    category: outflow
+    module: Outflows
+    description: Stable retail deposit outflow — 3% outflow
+    status: confirmed
+  - rule: 32(a)(2)
+    cfr: §249.32(a)(2)
+    weight: 0.1
+    fr2052a:
+      - O.D.3
+    category: outflow
+    module: Outflows
+    description: Other retail deposit outflow — 10% outflow
+    status: confirmed
+  - rule: 32(a)(3)
+    cfr: §249.32(a)(3)
+    weight: 0.2
+    fr2052a:
+      - O.D.13
+    category: outflow
+    module: Outflows
+    description: Brokered retail deposit with reciprocal arrangement — 20% outflow
+    status: confirmed
+  - rule: 32(a)(4)
+    cfr: §249.32(a)(4)
+    weight: 0.4
+    fr2052a:
+      - O.D.8
+    category: outflow
+    module: Outflows
+    description: Other brokered retail deposit — 40% outflow
+    status: confirmed
+  - rule: 32(a)(5)
+    cfr: §249.32(a)(5)
+    weight: 0.4
+    fr2052a:
+      - O.D.1
+      - O.D.2
+      - O.D.3
+    category: outflow
+    module: Outflows
+    description: Uninsured non-brokered retail deposit — 40% outflow
+    status: provisional
+  - rule: 32(b)
+    cfr: §249.32(b)
+    weight: 1
+    fr2052a:
+      - O.D.6
+      - O.W.9
+      - O.W.10
+      - O.O.21
+    category: outflow
+    module: Outflows
+    description: Unsecured wholesale funding outflow — 100% outflow
+    status: provisional
+  - rule: 32(c)
+    cfr: §249.32(c)
+    weight: 0.2
+    fr2052a:
+      - O.D.4
+      - O.D.7
+    category: outflow
+    module: Outflows
+    description: Operational deposit outflow — 20% outflow
+    status: confirmed
+  - rule: 32(e)
+    cfr: §249.32(e)
+    weight: 0
+    fr2052a:
+      - O.S.1
+      - O.S.2
+    category: outflow
+    module: Outflows
+    description: Secured outflow backed by Level 1 HQLA collateral — 0% outflow
+    status: confirmed
+  - rule: 32(f)
+    cfr: §249.32(f)
+    weight: 0
+    fr2052a:
+      - O.S.1
+      - O.S.6
+    category: outflow
+    module: Outflows
+    description: Secured outflow backed by central bank eligible collateral — 0% outflow
+    status: provisional
+  - rule: 32(g)(1)
+    cfr: §249.32(g)(1)
+    weight: 0
+    fr2052a:
+      - O.S.1
+      - O.S.2
+    category: outflow
+    module: Outflows
+    description: Maturity-differentiated secured outflow — Level 1 collateral — 0% outflow
+    status: provisional
+  - rule: 32(g)(2)
+    cfr: §249.32(g)(2)
+    weight: 0
+    fr2052a:
+      - O.S.1
+      - O.S.6
+    category: outflow
+    module: Outflows
+    description: Maturity-differentiated secured outflow — central bank eligible collateral — 0% outflow
+    status: provisional
+  - rule: 32(g)(3)
+    cfr: §249.32(g)(3)
+    weight: 0
+    fr2052a:
+      - O.S.1
+      - O.S.2
+    category: outflow
+    module: Outflows
+    description: Maturity-differentiated secured outflow — Level 2A collateral — 0% outflow
+    status: provisional
+  - rule: 32(g)(4)
+    cfr: §249.32(g)(4)
+    weight: 0
+    fr2052a:
+      - O.S.1
+      - O.S.2
+    category: outflow
+    module: Outflows
+    description: Maturity-differentiated secured outflow — Level 2B collateral — 0% outflow
+    status: provisional
+  - rule: 32(g)(5)
+    cfr: §249.32(g)(5)
+    weight: 0
+    fr2052a:
+      - O.S.1
+      - O.S.2
+    category: outflow
+    module: Outflows
+    description: Maturity-differentiated secured outflow — sovereign/central bank/multilateral collateral — 0% outflow
+    status: provisional
+  - rule: 32(g)(6)
+    cfr: §249.32(g)(6)
+    weight: 0
+    fr2052a:
+      - O.S.1
+    category: outflow
+    module: Outflows
+    description: Maturity-differentiated secured outflow — non-sovereign, non-HQLA collateral — 0% outflow
+    status: provisional
+  - rule: 32(g)(7)
+    cfr: §249.32(g)(7)
+    weight: 0
+    fr2052a:
+      - O.S.1
+    category: outflow
+    module: Outflows
+    description: Maturity-differentiated secured outflow — equity collateral — 0% outflow
+    status: provisional
+  - rule: 32(g)(8)
+    cfr: §249.32(g)(8)
+    weight: 0
+    fr2052a:
+      - O.S.1
+      - O.S.11
+    category: outflow
+    module: Outflows
+    description: Maturity-differentiated secured outflow — all other collateral — 0% outflow
+    status: provisional
+  - rule: 32(g)(9)
+    cfr: §249.32(g)(9)
+    weight: 0
+    fr2052a:
+      - O.S.1
+      - O.S.2
+    category: outflow
+    module: Outflows
+    description: Maturity-differentiated secured outflow — domestic sovereign collateral — 0% outflow
+    status: provisional
+  - rule: 32(h)(3)
+    cfr: §249.32(h)(3)
+    weight: 0.05
+    fr2052a:
+      - O.O.4
+    category: outflow
+    module: Outflows
+    description: Committed credit facility outflow — non-financial corporates and others — 5% outflow
+    status: confirmed
+  - rule: 32(h)(4)
+    cfr: §249.32(h)(4)
+    weight: 0.25
+    fr2052a:
+      - O.O.5
+    category: outflow
+    module: Outflows
+    description: Committed liquidity facility outflow — 25% outflow
+    status: confirmed
+  - rule: 32(l)
+    cfr: §249.32(l)
+    weight: 0
+    fr2052a:
+      - O.O.22
+    category: outflow
+    module: Outflows
+    description: Other contractual cash outflows — 0% outflow
+    status: provisional
+  - rule: 33(f)(1)(iii)
+    cfr: §249.33(f)(1)(iii)
+    weight: 0
+    fr2052a:
+      - O.S.1
+      - O.S.2
+    category: outflow
+    module: Outflows
+    description: Secured lending unwind — Level 1 collateral (no additional outflow) — 0% outflow
+    status: provisional
+  - rule: 33(f)(1)(iv)
+    cfr: §249.33(f)(1)(iv)
+    weight: 0.15
+    fr2052a:
+      - O.S.1
+      - O.S.2
+    category: outflow
+    module: Outflows
+    description: Secured lending unwind — Level 2A collateral (15% additional outflow) — 15% outflow
+    status: provisional
+  - rule: 20(a)(1)
+    cfr: §249.20(a)(1)
+    weight: 1
+    fr2052a:
+      - I.A.3
+      - I.A.1
+    category: hqla
+    module: Inflows
+    description: Level 1 HQLA — coins, banknotes, central bank reserves — 100% credit
+    status: provisional
+  - rule: 20(a)(3)-(6)
+    cfr: §249.20(a)(3)–(6)
+    weight: 1
+    fr2052a:
+      - I.A.1
+    category: hqla
+    module: Inflows
+    description: Level 1 HQLA — specific qualifying instruments (Treasuries, agency, sovereign) — 100% credit
+    status: provisional
+  - rule: 20(b)
+    cfr: §249.20(b)
+    weight: 0.85
+    fr2052a:
+      - I.A.1
+    category: hqla
+    module: Inflows
+    description: Level 2A HQLA — GSE/agency MBS, sovereign debt meeting 20% risk weight — 85% credit
+    status: provisional
+  - rule: 20(c)
+    cfr: §249.20(c)
+    weight: 0.5
+    fr2052a:
+      - I.A.1
+    category: hqla
+    module: Inflows
+    description: Level 2B HQLA — non-agency RMBS, publicly traded equities — 50% credit
+    status: provisional
+  - rule: 33(b)
+    cfr: §249.33(b)
+    weight: 1
+    fr2052a:
+      - I.S.1
+      - I.S.2
+    category: inflow
+    module: Inflows
+    description: Secured lending inflow — non-maturity/Level 1 backed — 100% inflow
+    status: confirmed
+  - rule: 33(c)
+    cfr: §249.33(c)
+    weight: 0.5
+    fr2052a:
+      - I.S.1
+      - I.S.2
+    category: inflow
+    module: Inflows
+    description: Secured lending inflow — pooled/commingled collateral structure — 50% inflow
+    status: provisional
+  - rule: 33(d)(1)
+    cfr: §249.33(d)(1)
+    weight: 1
+    fr2052a:
+      - I.U.1
+      - I.U.2
+      - I.U.6
+    category: inflow
+    module: Inflows
+    description: Unsecured wholesale inflow — non-financial corporate — 100% inflow
+    status: confirmed
+  - rule: 33(d)(2)
+    cfr: §249.33(d)(2)
+    weight: 1
+    fr2052a:
+      - I.U.1
+      - I.U.2
+    category: inflow
+    module: Inflows
+    description: Unsecured wholesale inflow — financial entity counterparty — 100% inflow
+    status: provisional
+  - rule: 33(e)
+    cfr: §249.33(e)
+    weight: 1
+    fr2052a:
+      - I.O.5
+    category: inflow
+    module: Inflows
+    description: Broker-dealer segregated account inflow — 100% inflow
+    status: confirmed
+  - rule: 33(g)
+    cfr: §249.33(g)
+    weight: 1
+    fr2052a:
+      - I.O.9
+    category: inflow
+    module: Inflows
+    description: Other contractual cash inflows — 100% inflow
+    status: provisional
+  - rule: 33(h)
+    cfr: §249.33(h)
+    weight: 0
+    fr2052a:
+      - I.O.7
+    category: inflow
+    module: Inflows
+    description: Net derivative cash inflow (zero weight) — 0% inflow
+    status: confirmed

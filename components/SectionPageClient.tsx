@@ -1,11 +1,11 @@
 'use client';
 
 import { useModeStore } from '@/lib/store';
-import SectionNav from './SectionNav';
+import ScrollTOC from './ScrollTOC';
 import HumanRenderer from './HumanRenderer';
 import MachineRenderer from './MachineRenderer';
 import AnnotationPanel from './AnnotationPanel';
-import type { FR2052aForm, Section } from '@/lib/types';
+import type { FR2052aForm, Section, MorphirRule } from '@/lib/types';
 
 interface Props {
   section: Section;
@@ -13,6 +13,7 @@ interface Props {
   rawBody: string;
   metadata: FR2052aForm;
   allSections: Section[];
+  morphirRules: MorphirRule[];
 }
 
 export default function SectionPageClient({
@@ -21,6 +22,7 @@ export default function SectionPageClient({
   rawBody,
   metadata,
   allSections,
+  morphirRules,
 }: Props) {
   const { mode } = useModeStore();
   const isDark = mode === 'machine';
@@ -28,18 +30,24 @@ export default function SectionPageClient({
   return (
     <div
       className={`flex ${isDark ? 'bg-slate-900' : 'bg-surface-50'}`}
-      style={{ height: 'calc(100vh - 6.5rem)' }}
+      style={{ height: 'calc(100vh - 6rem)' }}
     >
-      <SectionNav metadata={metadata} sections={allSections} />
+      <ScrollTOC
+        metadata={metadata}
+        sections={allSections}
+        activeId={section.section_id}
+        scrollMode={false}
+      />
 
       <div className="flex-1 overflow-y-auto">
         {mode === 'human' ? (
-          <HumanRenderer section={section} />
+          <HumanRenderer section={section} morphirRules={morphirRules} />
         ) : (
           <MachineRenderer
             section={section}
             rawFrontmatter={rawFrontmatter}
             rawBody={rawBody}
+            morphirRules={morphirRules}
           />
         )}
       </div>

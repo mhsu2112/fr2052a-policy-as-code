@@ -22,6 +22,10 @@ import {
   cmdFilter,
   cmdExport,
   cmdGlossary,
+  cmdMorphir,
+  cmdClassifyFlow,
+  cmdComputeLcr,
+  cmdStressTest,
 } from '../lib/commands/index.js';
 
 const server = new McpServer(
@@ -254,6 +258,139 @@ server.registerTool(
     },
   },
   async ({ term }) => text(cmdGlossary(term))
+);
+
+// ── Tool: fr2052a_morphir ─────────────────────────────────────────────────────
+
+server.registerTool(
+  'fr2052a_morphir',
+  {
+    description:
+      'Query the mapping between Morphir LCR rule codes (12 CFR 249) and FR 2052a sections. ' +
+      'Pass a Morphir rule code (e.g. "32(a)(1)") to get rule details and linked FR 2052a sections. ' +
+      'Pass a section ID (e.g. "O.D.1") to get all Morphir rules linked to that section. ' +
+      'Pass "all" for the full mapping, or "outflows"/"inflows"/"hqla" to filter by category. ' +
+      'Based on FINOS Morphir LCR sample (2014 final rule / 2019 FR 2052a); mappings are provisional.',
+    inputSchema: {
+      query: z.string().describe(
+        'Morphir rule code (e.g. "32(a)(1)"), FR 2052a section ID (e.g. "O.D.1"), ' +
+        '"all", "outflows", "inflows", or "hqla"'
+      ),
+    },
+  },
+  async ({ query }) => text(cmdMorphir(query))
+);
+
+// ── Tool: fr2052a_classify_flow ───────────────────────────────────────────────
+
+const flowSchema = z.object({
+  ruleCode: z.string().describe('FR 2052a section ID in dot notation (e.g. "O.D.1")'),
+  amount: z.number().describe('Flow amount in reporting currency'),
+  maturityDate: z.string().optional().describe('Maturity date ISO 8601 (YYYY-MM-DD); omit for open/demand'),
+  businessDate: z.string().optional().describe('Business date ISO 8601 for t0 HQLA flows'),
+  assetCategory: z
+    .enum(['Level1Assets', 'Level2aAssets', 'Level2bAssets'])
+    .optional()
+    .describe('HQLA asset category (required for HQLA flows)'),
+  isUnencumbered: z.boolean().optional().describe('Whether the asset is unencumbered'),
+  counterparty: z
+    .object({
+      counterpartyType: z
+        .enum([
+          'Retail', 'SmallBusiness', 'NonFinancialCorporate',
+          'BankOrDepositoryInstitution', 'CentralBank', 'GovernmentSponsoredEntity',
+          'PublicSectorEntity', 'MultilateralDevelopmentBank', 'OtherSupranational',
+          'PensionFund', 'Fiduciary', 'CreditUnion', 'InvestmentCompany',
+          'FinancialMarketUtility', 'OtherFinancial', 'Sovereign',
+          'CentralGovernment', 'RegulatedFinancialInstitution',
+        ])
+        .describe('Counterparty type'),
+      insuranceType: z.enum(['FDIC', 'Uninsured']).optional(),
+      isOperational: z.boolean().optional(),
+      isInstitutionAffiliate: z.boolean().optional(),
+      isCollateralizedByLevel1: z.boolean().optional(),
+      isCollateralizedByLevel2a: z.boolean().optional(),
+    })
+    .optional()
+    .describe('Counterparty details (required for outflow/inflow classification)'),
+});
+
+server.registerTool(
+  'fr2052a_classify_flow',
+  {
+    description:
+      'Classify a single financial flow against all Morphir LCR outflow and inflow rules. ' +
+      'Returns matching rules with weights, weighted amounts, and linked FR 2052a sections. ' +
+      'Based on 12 CFR 249 (2014 final rule) / FINOS Morphir LCR sample.',
+    inputSchema: {
+      flow: flowSchema.describe('The flow to classify'),
+      date: z.string().optional().describe('Reporting date ISO 8601 (YYYY-MM-DD)'),
+    },
+  },
+  async ({ flow, date }) => text(cmdClassifyFlow({ flow, date }))
+);
+
+// ── Tool: fr2052a_compute_lcr ─────────────────────────────────────────────────
+
+server.registerTool(
+  'fr2052a_compute_lcr',
+  {
+    description:
+      'Compute the full LCR (Liquidity Coverage Ratio) from three flow buckets: HQLA, outflows, ' +
+      'and inflows. Returns HQLA breakdown by level, outflow/inflow drill-down by rule, ' +
+      'maturity mismatch add-on, and final LCR ratio. Based on 12 CFR 249 (2014 final rule).',
+    inputSchema: {
+      hqla_flows: z.array(flowSchema).describe('HQLA flows (set assetCategory on each)'),
+      outflow_flows: z.array(flowSchema).describe('Outflow flows (set counterparty on each)'),
+      inflow_flows: z.array(flowSchema).describe('Inflow flows (set counterparty on each)'),
+      reporting_date: z.string().describe('Reporting date ISO 8601 (YYYY-MM-DD)'),
+    },
+  },
+  async ({ hqla_flows, outflow_flows, inflow_flows, reporting_date }) =>
+    text(cmdComputeLcr({ hqla_flows, outflow_flows, inflow_flows, reporting_date }))
+);
+
+// ── Tool: fr2052a_stress_test ─────────────────────────────────────────────────
+
+server.registerTool(
+  'fr2052a_stress_test',
+  {
+    description:
+      'Run a stress test comparing base and stressed LCR scenarios. Apply adjustments ' +
+      '(scale outflows/inflows, reduce HQLA, add flows) and get base vs. stressed comparison ' +
+      'with delta analysis. Based on 12 CFR 249 (2014 final rule) / FINOS Morphir LCR sample.',
+    inputSchema: {
+      hqla_flows: z.array(flowSchema).describe('Base HQLA flows'),
+      outflow_flows: z.array(flowSchema).describe('Base outflow flows'),
+      inflow_flows: z.array(flowSchema).describe('Base inflow flows'),
+      reporting_date: z.string().describe('Reporting date ISO 8601 (YYYY-MM-DD)'),
+      adjustments: z
+        .array(
+          z.discriminatedUnion('type', [
+            z.object({
+              type: z.literal('scale_outflows'),
+              factor: z.number().describe('Multiplier (e.g. 1.2 = +20%)'),
+            }),
+            z.object({
+              type: z.literal('scale_inflows'),
+              factor: z.number().describe('Multiplier (e.g. 0.5 = −50%)'),
+            }),
+            z.object({
+              type: z.literal('reduce_hqla'),
+              factor: z.number().describe('Multiplier for HQLA amounts (e.g. 0.8 = −20%)'),
+            }),
+            z.object({
+              type: z.literal('add_flows'),
+              bucket: z.enum(['hqla', 'outflows', 'inflows']).describe('Which bucket to add to'),
+              flows: z.array(flowSchema).describe('Additional flows to inject'),
+            }),
+          ])
+        )
+        .describe('Stress adjustments to apply in order'),
+    },
+  },
+  async ({ hqla_flows, outflow_flows, inflow_flows, reporting_date, adjustments }) =>
+    text(cmdStressTest({ hqla_flows, outflow_flows, inflow_flows, reporting_date, adjustments }))
 );
 
 // ── Start ─────────────────────────────────────────────────────────────────────

@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "(prisma generate || true) && next build",
     "start": "next start",
     "lint": "eslint",
     "mcp": "tsx mcp/server.ts",
-    "build:mcp": "tsc --project tsconfig.mcp.json"
+    "build:mcp": "tsc --project tsconfig.mcp.json",
+    "derive-rule-map": "tsx scripts/derive-rule-map.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.1",
@@ -34,6 +35,7 @@
     "zustand": "^5.0.12"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.15.9",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
