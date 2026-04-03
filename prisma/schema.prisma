@@ -1,0 +1,101 @@
+// FR 2052a Prisma Schema
+// PostgreSQL database for annotations, users, and organizations
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  name          String?
+  password_hash String?
+  org_id        String?
+  role          String   @default("member") // member | admin | examiner
+  created_at    DateTime @default(now())
+
+  org         Organization? @relation(fields: [org_id], references: [id])
+  annotations Annotation[]
+  votes       Vote[]
+}
+
+model Organization {
+  id         String   @id @default(cuid())
+  name       String
+  verified   Boolean  @default(true)
+  created_at DateTime @default(now())
+
+  users       User[]
+  annotations Annotation[]
+}
+
+model Annotation {
+  id         String   @id @default(cuid())
+  org_id     String
+  user_id    String
+  section_id String   // e.g. "I.A.1" — references content file, not a DB foreign key
+  content    String   // markdown
+  category   String   // interpretation | internal_policy | examiner_guidance | open_question
+  visibility String   @default("org_private") // org_private | community_anonymous | community_attributed
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  org  Organization @relation(fields: [org_id], references: [id])
+  user User         @relation(fields: [user_id], references: [id])
+  votes Vote[]
+}
+
+model Vote {
+  id            String   @id @default(cuid())
+  annotation_id String
+  user_id       String
+  value         Int      // +1 or -1
+  created_at    DateTime @default(now())
+
+  annotation Annotation @relation(fields: [annotation_id], references: [id])
+  user       User       @relation(fields: [user_id], references: [id])
+
+  @@unique([annotation_id, user_id])
+}
+
+// ─── Tier 2 Community Q&A (uncomment when ready) ─────────────────────────────
+
+// model Question {
+//   id         String   @id @default(cuid())
+//   section_id String
+//   user_id    String
+//   content    String   // markdown
+//   status     String   @default("open") // open | answered | closed
+//   created_at DateTime @default(now())
+//   updated_at DateTime @updatedAt
+//   answers    Answer[]
+//   comments   Comment[]
+// }
+
+// model Answer {
+//   id          String   @id @default(cuid())
+//   question_id String
+//   user_id     String
+//   content     String   // markdown
+//   accepted    Boolean  @default(false)
+//   created_at  DateTime @default(now())
+//   updated_at  DateTime @updatedAt
+//   question    Question @relation(fields: [question_id], references: [id])
+//   comments    Comment[]
+// }
+
+// model Comment {
+//   id          String   @id @default(cuid())
+//   user_id     String
+//   content     String   // markdown
+//   question_id String?
+//   answer_id   String?
+//   created_at  DateTime @default(now())
+//   question    Question? @relation(fields: [question_id], references: [id])
+//   answer      Answer?   @relation(fields: [answer_id], references: [id])
+// }

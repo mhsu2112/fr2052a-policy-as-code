@@ -1,0 +1,525 @@
+# FR 2052a Regulatory Reference — Full Section Index
+
+> Comprehensive machine-readable index of all 147 sections in the FR 2052a Complex Institution Liquidity Monitoring Report (version 2025-02-26).
+> For API documentation, see /llms.txt
+
+## How to use this file
+
+- Each section below is listed with its ID, pillar, category, and definition summary
+- Use `/api/section/{id}` to fetch the full section content
+- Use `/api/search?q={query}` to find sections by keyword
+- Use `/api/map?product={description}` to classify a financial instrument
+
+---
+
+## INFLOWS
+
+### I.A — Assets
+
+**I.A.1** | Unencumbered Assets
+Refers to assets that are owned outright that are (i) free of legal, regulatory, contractual, or other restrictions on the ability of the reporting entity to liquidate, sell, transfer, or, if applicable, pledge the asset, and (ii) have not been pledged as collateral or otherwise designated to secure or collateralize a particular liability or obligation.
+
+**I.A.2** | Capacity (Exclude unsettled securities purchases)
+Reports capacity excluding transactions involving the purchase of securities that have been executed, but not yet settled, as those transactions should be reported in I.A.5.
+
+**I.A.3** | Unrestricted Reserve Balances
+Refers to reserve bank balances maintained at a Federal Reserve Bank, less the reserve balance requirement, that are available for immediate withdrawal or use.
+
+**I.A.4** | Restricted Reserve Balances
+Refers to balances held at central banks that are not immediately withdrawable and currency and coin holdings at the entity.
+
+**I.A.5** | Unsettled Asset Purchases
+Refers to transactions involving the purchase of securities that have been executed, but have not yet settled.
+
+**I.A.6** | Forward Asset Purchases
+Refers to transactions involving the purchase of securities that have been executed, but not yet settled, beyond the standard settlement period.
+
+**I.A.7** | Encumbered Assets
+Refers to encumbered assets, of which the reporting entity is the beneficial owner (i.e., the asset is on the reporting entity's balance sheet), that have been pledged as collateral or otherwise designated to secure or collateralize a particular liability or obligation.
+
+---
+
+### I.U — Unsecured Inflows
+
+**I.U.1** | Onshore Placements
+Refers to unsecured placements of the domestic currency between eligible domestic institutions.
+
+**I.U.2** | Offshore Placements
+Refers to unsecured placements of the domestic currency outside of the onshore market, but within the same currency.
+
+**I.U.3** | Required Operational Balances
+Refers to the minimum balances held at other financial counterparties necessary to maintain access to payment and clearing services.
+
+**I.U.4** | Excess Operational Balances
+Refers to balances placed at other financial counterparties not reported in I.U.3.
+
+**I.U.5** | Outstanding Draws on Unsecured Revolving Facilities
+Refers to the existing loan arising from the drawn portion of any unsecured revolving facility provided to the reporting entity.
+
+**I.U.6** | Other Loans
+Refers to all other unsecured loans not otherwise included in I.U products.
+
+**I.U.7** | Cash Items in the Process of Collection
+Refers to checks or drafts in process of collection that are drawn on another depository institution and balances due from other depository institutions.
+
+**I.U.8** | Short-Term Investments
+Refers to balances, including but not limited to time deposits, that are held as short-term investments.
+
+---
+
+### I.S — Secured Inflows
+
+**I.S.1** | Reverse Repo
+Refers to all reverse repurchase agreements (including under Master Repurchase Agreement or similar agreements) where the reporting entity is the cash lender.
+
+**I.S.2** | Securities Borrowing
+Refers to all securities borrowing transactions (including under Master Securities Loan Agreement or similar agreements).
+
+**I.S.3** | Dollar Rolls
+Refers to transactions using TBA contracts with the intent of providing financing, where the reporting entity sells TBA contracts for current month delivery and simultaneously purchases TBA contracts for delivery in the following month.
+
+**I.S.4** | Collateral Swaps
+Refers to transactions where non-cash assets are exchanged (e.g., collateral upgrade/downgrade transactions).
+
+**I.S.5** | Margin Loans
+Refers to credit provided to a client to fund a trading position, collateralized by the client's cash or securities.
+
+**I.S.6** | Other Secured Loans — Rehypothecatable
+Refers to all other secured lending that does not otherwise meet the definitions of the Inflows-Secured products and where the reporting entity has the right to rehypothecate the collateral.
+
+**I.S.7** | Outstanding Draws on Secured Revolving Facilities
+Refers to the existing loan arising from the drawn portion of a revolving facility (e.g., a general purpose revolving credit facility secured by eligible collateral).
+
+**I.S.8** | Other Secured Loans — Non-Rehypothecatable
+Refers to all other secured lending that does not otherwise meet the definitions of the Inflows-Secured products and where the reporting entity does not have the right to rehypothecate the collateral.
+
+**I.S.9** | Synthetic Customer Longs
+Refers to total return swaps booked in client accounts, where the reporting entity is providing long exposure to the client.
+
+**I.S.10** | Synthetic Firm Sourcing
+Refers to total return swaps that are not booked in client accounts, where the reporting entity is receiving long exposure.
+
+---
+
+### I.O — Other Inflows
+
+**I.O.1** | Derivative Receivables
+Refers to the maturing incoming cash flows related to uncollateralized derivatives.
+
+**I.O.2** | Collateral Called for Receipt
+Refers to the fair value of collateral due to the reporting entity as of date T that has been called but not yet received.
+
+**I.O.3** | TBA Sales
+Refers to all sales of TBA contracts for market making or liquidity providing.
+
+**I.O.4** | Undrawn Committed Facilities Purchased
+Refers to legally binding agreements that provide the reporting entity with the ability to draw funds from another institution.
+
+**I.O.5** | Lock-up Balance
+Refers to inflows related to broker-dealer segregated accounts, as set forth in the LRM Standards.
+
+**I.O.6** | Interest and Dividends Receivable
+Refers to contractual interest and dividend payments receivable on securities and loans and other instruments.
+
+**I.O.7** | Net 30-Day Derivative Receivables
+Refers to the net derivative cash inflow amount, as set forth in the LRM Standards.
+
+**I.O.8** | Principal Payments Receivable on Unencumbered Investment Securities
+Refers to contractual principal payments receivable on reporting entity-owned investment securities.
+
+**I.O.9** | Other Cash Inflows
+Refers to other contractual cash inflows that do not adhere to the definitions of the products identified in the FR 2052a.
+
+---
+
+## OUTFLOWS
+
+### O.W — Wholesale Outflows
+
+**O.W.1** | Asset-Backed Commercial Paper (ABCP) Single-Seller
+Refers to ABCP programs where a single seller/originator provides the underlying receivables.
+
+**O.W.2** | Asset-Backed Commercial Paper (ABCP) Multi-Seller
+Refers to ABCP programs where multiple sellers/originators provide the underlying receivables.
+
+**O.W.3** | Collateralized Commercial Paper
+Refers to commercial paper where repayment is supported by a pool of financial assets.
+
+**O.W.4** | Asset-Backed Securities (ABS)
+Refers to securities whose value and income payments are derived from a pool of underlying assets.
+
+**O.W.5** | Covered Bonds
+Refers to debt securities backed by a segregated pool of assets that remain on the issuer's balance sheet.
+
+**O.W.6** | Tender Option Bonds
+Refers to floating rate securities created from underlying fixed rate bonds.
+
+**O.W.7** | Other Asset-Backed Financing
+Refers to all other asset-backed financing arrangements that make use of conduits and similar structures.
+
+**O.W.8** | Commercial Paper
+Refers to short-term unsecured promissory notes issued to fund short-term liabilities.
+
+**O.W.9** | Onshore Borrowing
+Refers to unsecured borrowing of the domestic currency between eligible domestic institutions.
+
+**O.W.10** | Offshore Borrowing
+Refers to unsecured borrowing of the domestic currency outside of the onshore market.
+
+**O.W.11** | Unstructured Long Term Debt
+Refers to debt issuances with original maturity greater than one year, including plain vanilla bonds and notes.
+
+**O.W.12** | Structured Long Term Debt
+Refers to debt instruments with original maturity greater than one year whose principal or interest payments are linked to indices or other reference rates.
+
+**O.W.13** | Government Supported Debt
+Refers to debt issuances with an explicit guarantee from a sovereign entity or central bank.
+
+**O.W.14** | Unsecured Notes
+Refers to issuances of unsecured debt with original maturities less than a year.
+
+**O.W.15** | Structured Notes
+Refers to debt instruments with original maturity less than one year whose principal or interest is linked to indices or reference rates.
+
+**O.W.16** | Wholesale CDs
+Refers to certificates of deposits greater than $250,000 issued to wholesale counterparties.
+
+**O.W.17** | Draws on Committed Lines
+Refers to the outstanding amount of funds borrowed or drawn from a committed facility provided to the reporting entity.
+
+**O.W.18** | Free Credits
+Refers to liabilities of a broker or dealer to customers, excluding payables related to customer securities transactions.
+
+**O.W.19** | Other Unsecured Financing
+Refers to other forms of unsecured financing that are not captured in other O.W sections.
+
+---
+
+### O.S — Secured Outflows
+
+**O.S.1** | Repo
+Refers to all repurchase agreements where the reporting entity is the cash borrower.
+
+**O.S.2** | Securities Lending
+Refers to all securities lending transactions where the reporting entity is the securities lender borrowing cash.
+
+**O.S.3** | Dollar Rolls
+Refers to transactions using TBA contracts with the intent of financing a security or pool of securities.
+
+**O.S.4** | Collateral Swaps
+Refers to transactions where non-cash assets are exchanged (collateral upgrade/downgrade).
+
+**O.S.5** | FHLB Advances
+Refers to outstanding secured funding sourced from the Federal Home Loan Banks.
+
+**O.S.6** | Exceptional Central Bank Operations
+Refers to outstanding secured funding from central banks for exceptional central bank operations.
+
+**O.S.7** | Customer Shorts
+Refers to a transaction where the reporting entity's customer sells a physical security it does not own.
+
+**O.S.8** | Firm Shorts
+Refers to a transaction where the reporting entity sells a security it does not own.
+
+**O.S.9** | Synthetic Customer Shorts
+Refers to total return swaps booked in client accounts, where the reporting entity is providing short exposure to the client.
+
+**O.S.10** | Synthetic Firm Financing
+Refers to total return swaps that are not booked in client accounts, where the reporting entity is receiving financing.
+
+**O.S.11** | Other Secured Financing Transactions
+Refers to all other secured financing transactions that do not otherwise meet the definitions of other O.S products.
+
+---
+
+### O.D — Deposit Outflows
+
+**O.D.1** | Transactional Accounts
+Includes demand deposits and other accounts used for transactional purposes by retail and small business customers.
+
+**O.D.2** | Non-Transactional Relationship Accounts
+Refers to retail and small business deposits in accounts that are not transactional accounts and where the entity has a primary banking relationship.
+
+**O.D.3** | Non-Transactional Non-Relationship Accounts
+Refers to retail and small business deposits in accounts that are not transactional accounts and where no primary banking relationship exists.
+
+**O.D.4** | Operational Account Balances
+Refers to deposits from non-retail counterparties that qualify as operational accounts under the LRM Standards.
+
+**O.D.5** | Excess Balances in Operational Accounts
+Refers to deposits from non-retail counterparties in operational accounts that exceed the minimum operational balance.
+
+**O.D.6** | Non-Operational Account Balances
+Refers to all deposit balances from non-retail counterparties that do not qualify as operational deposits.
+
+**O.D.7** | Operational Escrow Accounts
+Refers to operational deposits held in escrow accounts as defined in the LRM Standards.
+
+**O.D.8** | Non-Reciprocal Brokered Accounts
+Refers to any deposit obtained through a deposit broker or intermediary (non-reciprocal).
+
+**O.D.9** | Stable Affiliated Sweep Account Balances
+Refers to stable deposit balances held by a customer through a sweep arrangement with an affiliate.
+
+**O.D.10** | Less Stable Affiliated Sweep Account Balances
+Refers to all other deposit balances in affiliated sweep arrangements not classified as stable.
+
+**O.D.11** | Non-Affiliated Sweep Accounts
+Refers to deposits held through a sweep arrangement with a non-affiliate.
+
+**O.D.12** | Other Product Sweep Accounts
+Refers to balances swept from deposit accounts into other products (e.g., CP, Fed Funds, Repo).
+
+**O.D.13** | Reciprocal Accounts
+Refers to any deposit obtained through a reciprocal deposit arrangement.
+
+**O.D.14** | Other Third-Party Deposits
+Refers to deposit accounts placed by a third party on behalf of counterparties.
+
+**O.D.15** | Other Accounts
+Refers to other deposit accounts that do not meet any of the definitions outlined in other O.D sections.
+
+---
+
+### O.O — Other Outflows
+
+**O.O.1** | Derivative Payables
+Refers to maturing outgoing cash flows related to uncollateralized derivatives.
+
+**O.O.2** | Collateral Called for Delivery
+Refers to the fair value of collateral due to counterparties that has been called but not yet delivered.
+
+**O.O.3** | TBA Purchases
+Refers to all purchases of TBA contracts for market making or liquidity providing.
+
+**O.O.4** | Credit Facilities
+Refers to committed credit facilities as defined in the LRM Standards.
+
+**O.O.5** | Liquidity Facilities
+Refers to committed liquidity facilities as defined in the LRM Standards (excluding ABCP facilities).
+
+**O.O.6** | Retail Mortgage Commitments
+Refers to contractual commitments to originate retail mortgages.
+
+**O.O.7** | Trade Finance Instruments
+Refers to documentary trade letters of credit, documentary and clean collection, import bills, and similar instruments.
+
+**O.O.8** | MTM Impact on Derivative Positions
+Refers to the absolute value of the largest 30-consecutive calendar day cumulative net mark-to-market change in the value of derivatives.
+
+**O.O.9** | Loss of Rehypothecation Rights Due to a 1 Notch Downgrade
+Refers to the total fair value of collateral over which the reporting entity would lose rehypothecation rights following a 1-notch downgrade.
+
+**O.O.10** | Loss of Rehypothecation Rights Due to a 2 Notch Downgrade
+Refers to the total fair value of collateral over which the reporting entity would lose rehypothecation rights following a 2-notch downgrade.
+
+**O.O.11** | Loss of Rehypothecation Rights Due to a 3 Notch Downgrade
+Refers to the total fair value of collateral over which the reporting entity would lose rehypothecation rights following a 3-notch downgrade.
+
+**O.O.12** | Loss of Rehypothecation Rights Due to a Change in Financial Condition
+Refers to the total fair value of collateral over which the reporting entity would lose rehypothecation rights due to a material change in financial condition.
+
+**O.O.13** | Total Collateral Required Due to a 1 Notch Downgrade
+Refers to the total cumulative fair value of additional collateral required following a 1-notch downgrade.
+
+**O.O.14** | Total Collateral Required Due to a 2 Notch Downgrade
+Refers to the total cumulative fair value of additional collateral required following a 2-notch downgrade.
+
+**O.O.15** | Total Collateral Required Due to a 3 Notch Downgrade
+Refers to the total cumulative fair value of additional collateral required following a 3-notch downgrade.
+
+**O.O.16** | Total Collateral Required Due to a Change in Financial Condition
+Refers to the total cumulative fair value of additional collateral required due to a material change in financial condition.
+
+**O.O.17** | Excess Margin
+Refers to the total capacity of the reporting entity's customer to generate additional margin funding.
+
+**O.O.18** | Unfunded Term Margin
+Refers to any unfunded contractual commitment to lend to a brokerage customer on margin for a term exceeding 30 days.
+
+**O.O.19** | Interest & Dividends Payable
+Refers to interest and dividends contractually payable on the reporting entity's liabilities and equity instruments.
+
+**O.O.20** | Net 30-Day Derivative Payables
+Refers to the net derivative cash outflow amount, as set forth in the LRM Standards.
+
+**O.O.21** | Other Outflows Related to Structured Transactions
+Refers to any incremental potential outflows related to structured transactions as defined in the LRM Standards.
+
+**O.O.22** | Other Cash Outflows
+Refers to any other material cash outflows not reported in any other line item.
+
+---
+
+## SUPPLEMENTAL
+
+### S.DC — Derivatives and Collateral
+
+**S.DC.1** | Gross Derivative Asset Values
+Refers to the aggregate value of derivative transactions not subject to qualifying master netting agreements.
+
+**S.DC.2** | Gross Derivative Liability Values
+Refers to the aggregate value of derivative liability transactions not subject to qualifying master netting agreements.
+
+**S.DC.3** | Derivative Settlement Payments Delivered
+Refers to the cumulative value of payments delivered as variation margin on outstanding derivative contracts.
+
+**S.DC.4** | Derivative Settlement Payments Received
+Refers to the cumulative value of payments received as variation margin on outstanding derivative contracts.
+
+**S.DC.5** | Initial Margin Posted — House
+Refers to the fair value of collateral posted by the reporting entity as initial margin for its own positions.
+
+**S.DC.6** | Initial Margin Posted — Customer
+Refers to the fair value of collateral posted by the reporting entity as initial margin for customer positions.
+
+**S.DC.7** | Initial Margin Received
+Refers to the fair value of collateral received by the reporting entity as initial margin.
+
+**S.DC.8** | Variation Margin Posted — House
+Refers to the fair value of collateral posted by the reporting entity as variation margin for its own positions.
+
+**S.DC.9** | Variation Margin Posted — Customer
+Refers to the fair value of collateral posted by the reporting entity as variation margin for customer positions.
+
+**S.DC.10** | Variation Margin Received
+Refers to the fair value of collateral received by the reporting entity as variation margin.
+
+**S.DC.11** | Derivative CCP Default Fund Contribution
+Refers to the reporting entity's contributions to a central counterparty's mutualized loss sharing arrangement.
+
+**S.DC.12** | Other CCP Pledges and Contributions
+Refers to the reporting entity's asset pledges (e.g., initial margin) and other contributions to CCPs not covered in S.DC.11.
+
+**S.DC.13** | Collateral Disputes Deliverables
+Refers to the fair value of collateral called by counterparties that the reporting entity is disputing.
+
+**S.DC.14** | Collateral Disputes Receivables
+Refers to the fair value of collateral the reporting entity has called from counterparties that the counterparty is disputing.
+
+**S.DC.15** | Sleeper Collateral Deliverables
+Refers to the fair value of unsegregated collateral that the reporting entity may be required to post upon a counterparty's request.
+
+**S.DC.16** | Required Collateral Deliverables
+Refers to the fair value of collateral that the reporting entity is contractually obligated to post but has not yet posted.
+
+**S.DC.17** | Sleeper Collateral Receivables
+Refers to the fair value of collateral that the reporting entity could call for or otherwise reclaim upon demand.
+
+**S.DC.18** | Derivative Collateral Substitution Risk
+Refers to the potential funding risk arising from the reporting entity's derivative counterparties substituting posted collateral.
+
+**S.DC.19** | Derivative Collateral Substitution Capacity
+Refers to the potential funding capacity arising from the reporting entity's contractual ability to substitute collateral posted to derivative counterparties.
+
+**S.DC.20** | Other Collateral Substitution Risk
+Refers to the potential funding risk arising from counterparties substituting non-derivative posted collateral.
+
+**S.DC.21** | Other Collateral Substitution Capacity
+Refers to the potential funding capacity arising from the reporting entity's contractual ability to substitute collateral in non-derivative transactions.
+
+---
+
+### S.L — Liquidity Risk Measurement
+
+**S.L.1** | Subsidiary Liquidity That Cannot Be Transferred
+Refers to the amount of assets of each reporting entity's consolidated subsidiaries that is in excess of the subsidiary's internal liquidity need but that cannot be transferred to the parent.
+
+**S.L.2** | Subsidiary Liquidity Available for Transfer
+Refers to the amount of excess eligible HQLA held at a subsidiary that can be transferred to the parent.
+
+**S.L.3** | Unencumbered Asset Hedges — Early Termination Outflows
+Refers to all cash outflows that would arise from the early termination of a hedge associated with unencumbered assets.
+
+**S.L.4** | Non-Structured Debt Maturing in Greater than 30-days — Primary Market Maker
+Refers to the debt security buyback outflow amount for non-structured debt where the reporting entity is a primary market maker.
+
+**S.L.5** | Structured Debt Maturing in Greater than 30-days — Primary Market Maker
+Refers to the debt security buyback outflow amount for structured debt where the reporting entity is a primary market maker.
+
+**S.L.6** | Liquidity Coverage Ratio
+Refers to the reporting entity's LCR calculation, as specified in the LRM Standards.
+
+**S.L.7** | Subsidiary Funding That Cannot Be Transferred
+Refers to the amount of stable funding at a subsidiary that is in excess of the subsidiary's NSFR required stable funding need but cannot be transferred to the parent.
+
+**S.L.8** | Subsidiary Funding Available for Transfer
+Refers to the amount of stable funding at a subsidiary that is available for transfer to the parent.
+
+**S.L.9** | Additional Funding Requirement for Off-Balance Sheet Rehypothecated Assets
+Refers to the required stable funding amount for off-balance sheet rehypothecated assets.
+
+**S.L.10** | Net Stable Funding Ratio
+Refers to the reporting entity's NSFR calculation, as specified in the LRM Standards.
+
+---
+
+### S.B — Balance Sheet
+
+**S.B.1** | Regulatory Capital Element
+Refers to the carrying value of regulatory capital, as defined in the LRM Standards.
+
+**S.B.2** | Other Liabilities
+Refers to all other liabilities not otherwise captured under other FR 2052a balance sheet products.
+
+**S.B.3** | Non-Performing Assets
+Refers to assets that are past due by more than 90 days or non-accrual.
+
+**S.B.4** | Other Assets
+Refers to all other assets not otherwise captured under other FR 2052a balance sheet products.
+
+**S.B.5** | Counterparty Netting
+Refers to the value of offsetting payables and receivables with a single counterparty under a qualifying master netting agreement.
+
+**S.B.6** | Carrying Value Adjustment
+Refers to all other adjustments to the value of FR 2052a balance sheet products necessary to reconcile to the reporting entity's balance sheet.
+
+---
+
+### S.I — Informational
+
+**S.I.1** | Long Market Value Client Assets
+Refers to the fair value of clients' long positions in margin accounts held at the reporting entity.
+
+**S.I.2** | Short Market Value Client Assets
+Refers to the fair value of clients' short positions in margin accounts.
+
+**S.I.3** | Gross Client Wires Received
+Refers to all wires received into Prime Brokerage client accounts on day T.
+
+**S.I.4** | Gross Client Wires Paid
+Refers to all wires paid from Prime Brokerage client accounts on day T.
+
+**S.I.5** | FRB 23A Capacity
+Report the entity's FRB 23A eligible unused capacity available.
+
+**S.I.6** | Subsidiary Liquidity Not Transferrable
+For Category IV banking organizations and FBOs, the amount of subsidiary liquidity that is not available for transfer to the parent.
+
+---
+
+### S.FX — Foreign Exchange
+
+**S.FX.1** | Spot
+Refers to single outright transactions involving the exchange of one currency for another at an agreed rate for settlement within two business days.
+
+**S.FX.2** | Forwards and Futures
+Refers to transactions involving the physical exchange of two currencies at a rate agreed upon at contract inception with settlement beyond two business days.
+
+**S.FX.3** | Swaps
+Refers to transactions involving the exchange of two currencies on a specific date at a rate agreed upon at contract inception and a reverse exchange at a future date.
+
+---
+
+## Glossary highlights
+
+- **HQLA** — High-Quality Liquid Assets: assets that can be easily and immediately converted into cash with little or no loss of value in stress conditions
+- **LCR** — Liquidity Coverage Ratio: requires institutions to hold sufficient HQLA to cover net cash outflows over a 30-day stress period
+- **NSFR** — Net Stable Funding Ratio: requires institutions to maintain a stable funding profile relative to the composition of their assets and off-balance sheet activities
+- **LRM Standards** — Federal Reserve's Liquidity Risk Measurement Standards (12 CFR Part 249)
+- **TBA** — To Be Announced: a forward contract for the purchase or sale of mortgage-backed securities
+- **FHLB** — Federal Home Loan Bank
+- **G-SIB** — Global Systemically Important Bank
+- **Reg YY** — Federal Reserve Regulation YY: Enhanced Prudential Standards for large bank holding companies
+
+Full glossary: `/api/glossary`

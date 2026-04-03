@@ -1,0 +1,54 @@
+form_id: FR_2052a
+form_name: Complex Institution Liquidity Monitoring Report
+omb_control_number: 7100-0361
+authority: Board of Governors of the Federal Reserve System
+current_version: '2025-02-26'
+effective_date: '2023-04-01'
+frequency:
+  daily:
+  - Category I (G-SIBs)
+  - Category II
+  - Category III (short-term wholesale funding >= $75B)
+  monthly:
+  - Category III (short-term wholesale funding < $75B)
+  - Category IV
+respondent_panel:
+  threshold: $100 billion total consolidated assets
+  includes:
+  - Top-tier U.S. BHCs (Reg YY Category I-IV)
+  - Top-tier U.S. SLHCs (covered depository institution holding companies)
+  - FBOs with combined U.S. assets >= $100B
+pillars:
+- id: inflows
+  name: Inflows
+  categories:
+  - I.A
+  - I.U
+  - I.S
+  - I.O
+- id: outflows
+  name: Outflows
+  categories:
+  - O.W
+  - O.S
+  - O.D
+  - O.O
+- id: supplemental
+  name: Supplemental
+  categories:
+  - S.DC
+  - S.L
+  - S.B
+  - S.I
+  - S.FX
+pdf_url: https://www.federalreserve.gov/reportforms/forms/FR_2052a20220429_f.pdf
+historical_versions:
+- date: '2025-02-26'
+  url: https://www.federalreserve.gov/apps/reportingforms/Report/Index/FR_2052a
+  status: current
+- date: '2023-03-01'
+  url: ''
+  status: not_yet_populated
+- date: '2022-04-29'
+  url: ''
+  status: not_yet_populated

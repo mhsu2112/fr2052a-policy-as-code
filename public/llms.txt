@@ -1,0 +1,97 @@
+# FR 2052a Regulatory Reference
+
+> Machine-readable reference for the Federal Reserve's FR 2052a Complex Institution Liquidity Monitoring Report. Covers all 147 sections across 13 categories and 3 reporting pillars with structured definitions, data fields, enumerated values, and cross-references.
+
+## What this site is
+
+This site provides both a human-browsable interface and a machine-queryable API for the FR 2052a report — the Federal Reserve's daily and monthly liquidity monitoring form for large U.S. banking organizations.
+
+It is designed to help compliance teams, regulatory technology tools, and AI agents understand:
+- Which transactions belong in which reporting sections
+- What data fields each section requires
+- How sections cross-reference each other and other regulations (LCR, Reg D, Basel III, etc.)
+
+## Form overview
+
+- **Form:** FR 2052a — Complex Institution Liquidity Monitoring Report
+- **Authority:** Board of Governors of the Federal Reserve System
+- **OMB Control Number:** 7100-0361
+- **Current version:** 2025-02-26
+- **Respondent panel:** U.S. BHCs, SLHCs, and FBOs with $100B+ total consolidated assets (Reg YY Category I-IV)
+- **Frequency:** Daily (Category I-III G-SIBs and high short-term wholesale funding), Monthly (Category III-IV)
+
+## Content structure
+
+### Inflows (4 categories)
+- **I.A** — Assets (liquid asset inventory, unencumbered securities)
+- **I.U** — Unsecured Inflows (deposits placed, interbank lending)
+- **I.S** — Secured Inflows (repo, securities lending)
+- **I.O** — Other Inflows (derivatives, FX, other)
+
+### Outflows (4 categories)
+- **O.W** — Wholesale Outflows (unsecured wholesale funding)
+- **O.S** — Secured Outflows (secured wholesale funding, FHLB)
+- **O.D** — Deposit Outflows (retail and operational deposits)
+- **O.O** — Other Outflows (derivatives, commitments, other)
+
+### Supplemental (5 categories)
+- **S.DC** — Derivatives and Collateral
+- **S.L** — Liquidity Risk Measurement (LCR, NSFR)
+- **S.B** — Balance Sheet
+- **S.I** — Informational
+- **S.FX** — Foreign Exchange
+
+## API
+
+All endpoints accept GET requests and return JSON (unless otherwise noted). CORS enabled on all routes.
+
+### Query-parameter endpoints
+
+| Endpoint | Parameters | Description |
+|----------|-----------|-------------|
+| `/api/search` | `q=<query>` | Full-text search across all sections |
+| `/api/section` | `id=<section_id>` | Full section by ID |
+| `/api/map` | `product=<description>` | Map a product to reporting sections |
+| `/api/fields` | `id=<section_or_category_id>` | Data fields for a section or category |
+| `/api/enums` | `field=<field_name>` | Enumerated values for a field |
+| `/api/xref` | `id=<section_or_regulation>` | Cross-reference resolution |
+| `/api/diff` | `id=<section_id>&from=<date>&to=<date>` | Version comparison |
+| `/api/schema` | `id=<section_id>` | Structured frontmatter only |
+| `/api/filter` | `pillar=&category=&has_field=&field_value=` | Filter sections |
+| `/api/export` | `scope=<all/pillar/category/section>&format=<json/yaml/md>` | Bulk export |
+| `/api/glossary` | `term=<term>` | Glossary lookup |
+
+### Path-parameter endpoints (REST-style)
+
+```
+GET /api/section/{id}
+GET /api/fields/{id}
+GET /api/enums/{field}
+GET /api/xref/{query}
+GET /api/diff/{id}
+GET /api/schema/{id}
+GET /api/export/{scope}
+GET /api/glossary/{term}
+GET /api/search/{q}
+GET /api/map/{product}
+```
+
+### Raw Markdown convention
+
+Append `.md` to any section URL to get the raw Markdown+frontmatter source:
+
+```
+GET /inflows/i-a/i-a-1.md
+GET /api/raw-md?id=I.A.1
+```
+
+## MCP server
+
+Ships an MCP server for Claude Desktop integration. See `/mcp/README.md`.
+
+Tools: fr2052a_search, fr2052a_show, fr2052a_map, fr2052a_fields, fr2052a_enums, fr2052a_xref, fr2052a_diff, fr2052a_schema, fr2052a_filter, fr2052a_export, fr2052a_glossary
+
+## Source
+
+FR 2052a PDF: https://www.federalreserve.gov/apps/reportingforms/Report/Index/FR_2052a
+OMB Control Number: 7100-0361

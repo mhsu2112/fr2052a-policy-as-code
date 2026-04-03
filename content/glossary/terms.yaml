@@ -1,0 +1,290 @@
+terms:
+- term: HQLA
+  full_name: High-Quality Liquid Assets
+  definition: Assets that can be easily and immediately converted to cash at little
+    or no loss of value. Defined in the LCR Rule (12 CFR Part 249) as Level 1, Level
+    2A, or Level 2B assets.
+  source: LCR Rule §249.3
+  related_sections:
+  - I.A.1
+  - I.A.2
+- term: Level 1 HQLA
+  definition: The highest quality liquid assets including coins and bank notes, central
+    bank reserves, and certain sovereign/central bank debt securities with 0% risk
+    weight. No cap or haircut applies.
+  source: LCR Rule §249.22
+  related_sections:
+  - I.A.1
+- term: Level 2A HQLA
+  definition: Liquid assets including certain sovereign, central bank, or GSE securities
+    and covered bonds. Subject to a 15% haircut and capped at 40% of HQLA stock.
+  source: LCR Rule §249.23
+  related_sections:
+  - I.A.1
+- term: Level 2B HQLA
+  definition: Lower quality liquid assets including qualifying non-financial corporate
+    bonds and publicly traded equities. Subject to 25-50% haircuts and capped at 15%
+    of HQLA stock.
+  source: LCR Rule §249.24
+  related_sections:
+  - I.A.1
+- term: Unencumbered Asset
+  definition: '............................................... 26 Rehypothecated ..................................................................................................................................
+    26 Unencumbered ...................................................................................................................................
+    26 Insured ...................................................................................................................................................'
+  source: FR 2052a Instructions, I.A.1
+  related_sections:
+  - I.A.1
+  - I.A.7
+- term: Material Entity
+  definition: 'gory II or III banking organizations should submit data for the following
+    entities: the global consolidated entity, the parent company only (ignoring consolidated
+    subsidiaries), and, separately, each material entity (see below). For these firms,
+    all bank subsidiaries with total consolidated assets of $10 billion or more are
+    considered material entities. Consult your supervisory teams to determine other
+    material entities that should also be reported. U.S. firms identified as Category
+    IV banking o...'
+  source: FR 2052a Instructions, General Provisions
+  related_sections:
+  - I.A.1
+  - O.W.1
+- term: Reporting Entity
+  definition: The entity submitting the FR 2052a report. May be the consolidated top-tier
+    holding company, the parent company on a standalone basis, or a material entity.
+  source: FR 2052a Instructions, General Provisions
+  related_sections: []
+- term: Maturity Bucket
+  definition: '............................................ 21 Collateral Value ...................................................................................................................................
+    22 Maturity Bucket ..................................................................................................................................
+    22 Effective Maturity Bucket ...................................................................................................................
+    23 Matur...'
+  source: FR 2052a Instructions, General Instructions
+  related_sections: []
+- term: Operational Deposit
+  definition: 'al Escrow Accounts. O.D.5: Excess Balances in Operational Accounts
+    Refers to deposits from counterparties that are not Retail or Small Business customers
+    that are excluded from the reporting entity’s operational deposit amount based
+    on the reporting entity’s methodology for identifying excess balances pursuant
+    to section 249.4(b)(5). These balances must be in accounts that meet all other
+    provisions of section 249.4(b). O.D.6: Non-Operational Account Balances Refers
+    to all deposits balances from ...'
+  source: LCR Rule §249.3; FR 2052a Instructions
+  related_sections:
+  - I.U.3
+  - I.U.4
+  - O.D.7
+- term: Reserve Balance
+  definition: '• BOC (Bank of Canada) • OCB (Other Central Bank) • FHLB (FHLB System)
+    • Other GSE I.A.3: Unrestricted Reserve Balances Refers to reserve bank balances
+    maintained at a Federal Reserve Bank, less the reserve balance requirement as
+    defined in section 204.5(a)(1) of Regulation D (12 CFR 204.5(a)(1)), foreign withdrawable
+    reserves maintained at other central banks, and Federal Reserve term deposits
+    that are not held to satisfy reserve requirements. Reserve Bank balances has the
+    meaning set forth in ...'
+  source: FR 2052a Instructions, I.A.3, I.A.4
+  related_sections:
+  - I.A.3
+  - I.A.4
+- term: Reverse Repo
+  definition: '............................... 38 I.S: Inflows-Secured .....................................................................................................................................
+    38 I.S.1: Reverse Repo..............................................................................................................................
+    39 I.S.2: Securities Borrowing ..................................................................................................................
+    39 I.S.3: Dolla...'
+  source: FR 2052a Instructions, I.S.1
+  related_sections:
+  - I.S.1
+  - O.S.1
+- term: Repo
+  definition: 'A repurchase agreement from the perspective of the cash borrower: the
+    reporting entity sells securities and agrees to repurchase them, effectively borrowing
+    cash using the securities as collateral.'
+  source: FR 2052a Instructions, O.S.1
+  related_sections:
+  - O.S.1
+  - I.S.1
+- term: Collateral Swap
+  definition: osure. • The effective maturity date must align with the remaining period
+    of encumbrance, irrespective of the original maturity of the transaction or exposure.
+    • With respect to an asset pledged to a collateral swap, if the asset received
+    in the collateral swap has been rehypothecated to secure another transaction,
+    in accordance with section 106(d)(2) of the LRM Standards, the effective maturity
+    date of the on- balance sheet asset pledged to the collateral swap must align
+    with the longer of the ...
+  source: FR 2052a Instructions, I.S, O.S
+  related_sections:
+  - I.S.3
+  - O.S.3
+- term: LCR
+  full_name: Liquidity Coverage Ratio
+  definition: 'days – Primary Market Maker ................. 71 Page 6 of 106 FR 2052a
+    Instructions S.L.5: Structured Debt Maturing in Greater than 30-days – Primary
+    Market Maker ......................... 71 S.L.6: Liquidity Coverage Ratio ............................................................................................................
+    71 S.L.7: Subsidiary Funding That Cannot Be Transferred .......................................................................
+    71 S.L.8: Subsidiary Funding Available...'
+  source: LCR Rule (12 CFR Part 249)
+  related_sections:
+  - S.L.6
+- term: NSFR
+  full_name: Net Stable Funding Ratio
+  definition: '.................................................................................
+    71 S.L.9: Additional Funding Requirement for Off-Balance Sheet Rehypothecated
+    Assets .................... 72 S.L.10: Net Stable Funding Ratio .........................................................................................................
+    72 S.B: Supplemental-Balance Sheet ...............................................................................................................
+    72 S.B.1: Regulatory Ca...'
+  source: NSFR Rule (12 CFR Part 252); FR 2052a Instructions, S.L.10
+  related_sections:
+  - S.L.10
+- term: LRM Standards
+  full_name: Liquidity Risk Measurement Standards
+  definition: egate data for multiple respondents, which do not reveal the identity
+    of any individual respondent, may be released. Liquidity Risk Measurement (LRM)
+    Standards For purposes of these instructions, the LRM Standards mean 12 CFR part
+    50 for national banks and Federal savings associations, Regulation WW or 12 CFR
+    part 249 for Board-regulated institutions, and 12 CFR part 329 for the FDIC-supervised
+    institutions. Categories of Banking Organizations Categories of banking organizations
+    are identified p...
+  source: Regulation YY (12 CFR Part 252, Subpart G)
+  related_sections:
+  - S.L.1
+  - S.L.2
+- term: Daily Reporter
+  definition: A reporting entity required to submit the FR 2052a on a daily basis.
+    Includes Category I, Category II, and Category III companies with short-term wholesale
+    funding of $75 billion or more.
+  source: FR 2052a Instructions, Frequency
+  related_sections: []
+- term: Monthly Reporter
+  definition: A reporting entity required to submit the FR 2052a on a monthly basis.
+    Includes Category III companies with short-term wholesale funding below $75 billion
+    and Category IV companies.
+  source: FR 2052a Instructions, Frequency
+  related_sections: []
+- term: G-SIB
+  full_name: Global Systemically Important Bank
+  definition: A banking organization identified by the Financial Stability Board as
+    globally systemically important, subject to enhanced capital and liquidity requirements.
+    U.S. G-SIBs are Category I firms under Regulation YY.
+  source: Regulation YY (12 CFR Part 252); Basel Committee on Banking Supervision
+  related_sections: []
+- term: Foreign Banking Organization
+  full_name: FBO
+  definition: olding Company Act (12 U.S.C. § 1841(a) and section 225.2(c) of the
+    Board’s Regulation Y, organized under the laws of the United States and excludes
+    any bank holding company that is a subsidiary of a Foreign Banking Organization;
+    and (2) a top-tier covered savings and loan holding company, as that term is defined
+    in section 10(a) of the Home Owners’ Loan Act (12 U.S.C. 1467a(a), and section
+    238.2(m) of the Board’s Page 9 of 106 FR 2052a Instructions Regulation LL, organized
+    under the laws of the...
+  source: Regulation YY (12 CFR Part 252); FR 2052a Instructions
+  related_sections: []
+- term: Rehypothecation
+  definition: '................................................. 61 O.O.8: MTM Impact
+    on Derivative Positions ......................................................................................
+    61 O.O.9: Loss of Rehypothecation Rights Due to a 1 Notch Downgrade ...............................................
+    62 O.O.10: Loss of Rehypothecation Rights Due to a 2 Notch Downgrade .............................................
+    62 O.O.11: Loss of Rehypothecation Rights Due to a 3 Notch Downgrade .....................'
+  source: FR 2052a Instructions, O.S, S.DC
+  related_sections:
+  - O.S.1
+  - S.DC.6
+  - S.DC.7
+- term: Category I Banking Organization
+  definition: A U.S. bank holding company or savings and loan holding company identified
+    as a U.S. global systemically important bank (G-SIB) under 12 CFR 252.5. Subject
+    to daily FR 2052a reporting.
+  source: Regulation YY (12 CFR 252.5)
+  related_sections: []
+- term: Category II Banking Organization
+  definition: A U.S. banking organization with $700 billion or more in total consolidated
+    assets, or $75 billion or more in cross-jurisdictional activity. Subject to daily
+    FR 2052a reporting.
+  source: Regulation YY (12 CFR 252.5)
+  related_sections: []
+- term: Category III Banking Organization
+  definition: A U.S. banking organization with $250 billion or more in total consolidated
+    assets, or meeting certain thresholds in nonbank assets, weighted short-term wholesale
+    funding, or off-balance-sheet exposure. Daily reporters if STWF >= $75B; otherwise
+    monthly.
+  source: Regulation YY (12 CFR 252.5)
+  related_sections: []
+- term: Category IV Banking Organization
+  definition: A U.S. banking organization with $100 billion or more in total consolidated
+    assets that does not meet the thresholds for Category I, II, or III. Subject to
+    monthly FR 2052a reporting.
+  source: Regulation YY (12 CFR 252.5)
+  related_sections: []
+- term: Brokered Deposit
+  definition: 'tionality # Collateral Class Other Collateral Value # Forward Start
+    Amount NULL Forward Start Bucket NULL Internal # Internal Counterparty # Loss
+    Absorbency # Business Line # (52) Unsecured Wholesale Brokered Deposit Non-Operational
+    Non-Financial (§.32(h)(1)(ii)(B)) Field Value Reporting Entity LCR Firm PID O.D.8
+    – 11, 13 Product Matches PID Counterparty Non‐Financial Corporate, Sovereign,
+    Central Bank, GSE, PSE, MDB, Other Supranational, Debt Issuing SPE, Other G‐SIB
+    # Maturity Amount * Maturit...'
+  source: 12 USC 1831f; FR 2052a Instructions, O.D
+  related_sections:
+  - O.D.1
+  - O.D.2
+- term: Secured Financing
+  definition: Borrowing backed by collateral. In the FR 2052a context, secured outflows
+    include repurchase agreements, securities lending transactions, and other collateralized
+    borrowings reported under O.S.
+  source: FR 2052a Instructions, O.S
+  related_sections:
+  - O.S.1
+  - O.S.2
+- term: Unsecured Financing
+  definition: Borrowing not backed by specific collateral. Reported under O.W (wholesale)
+    or O.D (deposits). Includes commercial paper, long-term debt, federal funds purchased,
+    and unsecured interbank borrowings.
+  source: FR 2052a Instructions, O.W, O.D
+  related_sections:
+  - O.W.1
+  - O.D.1
+- term: Initial Margin
+  definition: '............................................................ 66 S.DC.4:
+    Derivative Settlement Payments Received ............................................................................
+    66 S.DC.5: Initial Margin Posted - House .................................................................................................
+    66 S.DC.6: Initial Margin Posted - Customer ............................................................................................
+    66 S.DC.7: Initial Margin Received ...'
+  source: FR 2052a Instructions, S.DC.5, S.DC.6, S.DC.7
+  related_sections:
+  - S.DC.5
+  - S.DC.6
+  - S.DC.7
+- term: Variation Margin
+  definition: '............................................. 66 S.DC.7: Initial Margin
+    Received ...........................................................................................................
+    66 S.DC.8: Variation Margin Posted - House ...........................................................................................
+    67 S.DC.9: Variation Margin Posted - Customer ......................................................................................
+    67 S.DC.10: Variation Margin Received ........'
+  source: FR 2052a Instructions, S.DC.8-10
+  related_sections:
+  - S.DC.8
+  - S.DC.9
+  - S.DC.10
+- term: CCP
+  full_name: Central Counterparty
+  definition: ed (Principal) Refers to collateral posted or received in relation to
+    derivatives transactions for which transactions are executed OTC, but cleared
+    via a centralized financial market utility (e.g., a central counterparty), where
+    the reporting entity remains principal to the transaction, or for client transactions,
+    guarantees the performance of the centralized financial market utility to the
+    client. • OTC – Centralized (Agent) Refers to collateral posted or received in
+    relation to derivatives tra...
+  source: FR 2052a Instructions, S.DC
+  related_sections:
+  - S.DC.1
+  - S.DC.11
+  - S.DC.12
+- term: Short-Term Wholesale Funding
+  definition: 'anking organizations are identified pursuant to 12 CFR 252.5 and 12
+    CFR 238.10. A global systemically important bank holding company is identified
+    as such pursuant to 12 CFR 217.402. Average weighted short-term wholesale funding
+    is defined in 12 CFR 252.2. Undefined Terms Any undefined term used herein has
+    the meaning set forth in the LRM Standards. Who Must Report For U.S. Firms: For
+    purposes of the FR 2052a report, a U.S. firm is (1) a top-tier bank holding company
+    (BHC), as that term is defin...'
+  source: Regulation YY (12 CFR 252.5)
+  related_sections:
+  - O.W.1

@@ -1,0 +1,72 @@
+---
+section_id: S.DC.2
+section_name: Gross Derivative Liability Values
+pillar: supplemental
+category: S.DC
+category_name: 'Supplemental: Derivatives & Collateral'
+definition_summary: Refers to the aggregate value of derivative transactions not subject
+  to qualifying master netting
+data_fields:
+- name: product
+  type: string
+  description: FR 2052a product code
+  required: true
+- name: sub_product
+  type: string
+  description: Derivative type or sub-product
+  required: false
+- name: counterparty
+  type: enum
+  values:
+  - Retail
+  - Small Business
+  - Non-Financial Corporate
+  - Sovereign
+  - Central Bank
+  - GSE
+  - PSE
+  - MDB
+  - Other Supranational
+  - Pension Fund
+  - Bank
+  - Broker-Dealer
+  - Investment Company or Advisor
+  - Financial Market Utility
+  - Other Supervised Non-Bank Financial Entity
+  - Non-Regulated Fund
+  - Internal
+  - CCP
+  required: false
+- name: maturity_bucket
+  type: date_bucket
+  description: Contractual or next reset date
+  required: true
+- name: currency
+  type: string
+  description: ISO 4217 currency code
+  required: true
+- name: market_value
+  type: decimal
+  description: Current mark-to-market value
+  required: true
+- name: notional_value
+  type: decimal
+  description: Gross notional value
+  required: false
+- name: reporting_entity
+  type: enum
+  values:
+  - Consolidated
+  - Parent Only
+  - Material Entity
+  required: true
+cross_references: []
+version_history:
+- version: '2025-02-26'
+  change: Current version
+---
+
+Refers to the aggregate value of derivative transactions not subject to qualifying master netting
+agreements that are liabilities and the net value of derivative transactions within qualifying
+master netting agreements where the netting sets are liabilities. In both cases, the liability
+amount must be calculated as if no variation margin had been exchanged.

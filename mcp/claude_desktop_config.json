@@ -1,0 +1,10 @@
+{
+  "_comment": "Add this to your Claude Desktop config at ~/Library/Application Support/Claude/claude_desktop_config.json",
+  "mcpServers": {
+    "fr2052a": {
+      "command": "npx",
+      "args": ["tsx", "/ABSOLUTE/PATH/TO/fr2052a-site/mcp/server.ts"],
+      "cwd": "/ABSOLUTE/PATH/TO/fr2052a-site"
+    }
+  }
+}

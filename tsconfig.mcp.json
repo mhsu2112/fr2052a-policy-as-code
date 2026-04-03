@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "mcp/dist",
+    "target": "ES2020",
+    "sourceMap": true
+  },
+  "include": ["mcp/server.ts", "lib/commands/index.ts", "lib/content.ts", "lib/search.ts", "lib/types.ts"]
+}
