@@ -106,13 +106,13 @@ function HumanSectionBlock({ section }: { section: Section }) {
       <div className="flex items-start gap-3 mb-2">
         <Link
           href={sectionHref(section.section_id)}
-          className="shrink-0 text-xs font-mono font-semibold px-2 py-1 rounded hover:opacity-80 transition-opacity group flex items-center gap-1"
+          className="shrink-0 text-xs font-mono font-semibold px-2 py-1 rounded cursor-pointer hover:ring-2 hover:ring-blue-300 hover:shadow-sm transition-all flex items-center gap-1.5 no-underline"
           style={{ background: pc.bg, color: pc.color, border: `1px solid ${pc.border}` }}
-          title="Open detail view with annotations"
+          title="Click to open detail view with annotations"
         >
           {section.section_id}
-          <svg className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-4.5-6h6m0 0v6m0-6L9.75 14.25" />
+          <svg className="w-3 h-3 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
           </svg>
         </Link>
         <h3 className="text-lg font-semibold text-slate-900 leading-snug">{section.section_name}</h3>
